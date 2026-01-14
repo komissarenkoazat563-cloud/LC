@@ -1,41 +1,69 @@
 # RACI Template for a Shopping Cart Migration Project
 
-A RACI prevents the most common migration delay: tasks that stall because everyone thought someone else owned them.
+#### What this template helps you decide
 
-RACI definitions:
+RACI prevents decision paralysis. During migration, delays often come from unclear ownership, not technical complexity.
 
-* **R** Responsible: does the work
-* **A** Accountable: approves final outcome
-* **C** Consulted: provides input
-* **I** Informed: kept in the loop
+This template helps you answer:
 
-#### Roles to include
+* Who actually does the work?
+* Who approves decisions and sign-offs?
+* Who must be consulted before choices are locked?
+* Who should be informed so they do not block later?
 
-Adjust to your team:
+{% file src="../.gitbook/assets/RACI Template.xlsx" %}
 
-* Business Owner
-* Project Manager
-* Technical Lead or Agency
-* Marketing and SEO Lead
-* Customer Support Lead
-* Next-Cart (service provider)
+#### When to use it
 
-#### RACI Template
+Use RACI as soon as you have a working group and decision-makers. Update it after evidence arrives, especially after a **Demo Migration**, because real complexity can change roles and responsibilities.
 
-| Activity                                    | Business Owner | PM | Technical Lead or Agency | Marketing and SEO | Customer Support | Next-Cart |
-| ------------------------------------------- | -------------- | -- | ------------------------ | ----------------- | ---------------- | --------- |
-| Define migration goals and success criteria | A              | R  | C                        | C                 | C                | C         |
-| Choose demo sample                          | A              | R  | C                        | C                 | C                | C         |
-| Review Demo Migration results               | A              | R  | C                        | C                 | C                | C         |
-| Confirm scope boundaries                    | A              | R  | C                        | C                 | C                | C         |
-| Select migration service model              | A              | R  | C                        | C                 | C                | C         |
-| Catalog and navigation intent review        | A              | C  | C                        | R                 | I                | C         |
-| SEO continuity priorities and URL list      | A              | C  | C                        | R                 | I                | C         |
-| Redirect mapping sign-off                   | A              | C  | C                        | R                 | I                | C         |
-| Validation sign-off for high-risk products  | A              | R  | C                        | C                 | C                | C         |
-| Go-live approval                            | A              | R  | C                        | C                 | C                | C         |
-| Post-launch monitoring ownership            | A              | R  | C                        | C                 | C                | I         |
+#### How to use RACI for migration decisions
+
+A practical way to use RACI is to map it to these decision areas:
+
+* Scope definition and success criteria
+* Data mapping and exceptions
+* Validation rules and acceptance criteria
+* Redirect strategy and coverage
+* Go-live readiness
+
+If you cannot assign one accountable decision owner, your timeline risk increases.
+
+#### How to customize it
+
+Common customizations:
+
+* Add a “Decision deadline” column for approvals
+* Add a “Evidence required” column for sign-off conditions
+
+Keep the structure simple. The more complex the RACI becomes, the less likely it will be used.
+
+#### Next-Cart insight
+
+If you are using the Next-Cart migration service, many teams include a Next-Cart Specialist to consult on the scope, mapping interpretation, and validation review. This helps reduce ambiguity and speeds up decisions when demo results reveal unexpected complexity.
 
 If the planning phase feels stuck, you can reach out via **Live Chat** anytime to get expert support and discuss your migration needs and expected results with our technician, then optimize and finalize your plan based on the conversation.
 
 We also recommend using the **Demo Migration** function as a structured decision checkpoint, then finalizing your RACI based on the real issues that appear.
+
+#### FAQs
+
+<details>
+
+<summary><strong>Can RACI use roles instead of names?</strong></summary>
+
+Absolutely, it depends on your team's structure and workflow. Choose the approach that best ensures clarity, efficiency, and adaptability for your current setup.
+
+Whether you prefer role-based assignments or individual names, the key is selecting what promotes a smooth, effective collaboration.
+
+</details>
+
+<details>
+
+<summary><strong>What if multiple people must approve?</strong></summary>
+
+To streamline the process, assign one clear owner who is responsible for the final decision, and list others as consulted parties.
+
+Having multiple accountable individuals can sometimes lead to confusion and a lack of clear ownership.
+
+</details>

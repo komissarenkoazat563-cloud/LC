@@ -1,52 +1,41 @@
 # Redirect Planning Worksheet
 
-Redirect planning protects traffic continuity when URLs change. It is also one of the easiest areas to leave too late.
+#### What this worksheet helps you decide
 
-A helpful way to remember what changes. A URL has two parts:
+Redirect planning protects discoverability and customer journeys during change. This worksheet helps you decide:
 
-* Domain
-* URL path
+* Which URLs must remain accessible after launch?
+* What should the old paths map to on the new site?
+* Which redirects are tested and ready for cutover?
+* Where do you still have coverage gaps?
 
-In most migrations, the redirect work is about mapping **old URL paths** to **new URL paths** on the new site.
+{% file src="../.gitbook/assets/Redirect Planning Worksheet.xlsx" %}
 
-Next-Cart’s SEO URL Redirects option is designed to migrate old URL paths into the redirect system on the new website so old URLs can lead users to the correct new destination after domain cutover.
+#### Redirects are mainly about URL paths
 
-#### Redirect Planning Worksheet Template
+A URL is Domain plus URL Path. Redirect planning is usually a path-to-path problem, not a domain problem.
 
-**Project information**
+Redirect rules are applied on the new website. After domain cutover, requests to old paths can resolve to the intended new paths through your redirect system.
 
-* Domain:
-* Target platform:
-* Redirect owner:
-* Launch window:
-* Redirect type standard: 301
+#### How to prioritize without overworking it
 
-**Priority URL sources**\
-Check what you used:
+Start with High priority:
 
-* Top revenue products
-* Top category pages
-* Top landing pages
-* Blog posts with backlinks
-* Paid campaign URLs
-* Support and help URLs that customers use
+* Top traffic pages and landing pages
+* Top revenue product pages
+* Top category pages that drive discovery
+* Campaign URLs used in paid media
 
-**Redirect mapping table**
+Then expand coverage based on impact rather than trying to redirect everything equally.
 
-| Priority level | Old URL path | New URL path | Redirect type | Status | Notes |
-| -------------- | ------------ | ------------ | ------------- | ------ | ----- |
-| P1             |              |              | 301           |        |       |
-| P1             |              |              | 301           |        |       |
-| P2             |              |              | 301           |        |       |
-| P3             |              |              | 301           |        |       |
+#### How to customize it
 
-**Validation section**
+Common customizations:
 
-* Sample size tested:
-* Redirect chains found:
-* Incorrect destinations found:
-* Missing redirects found:
-* Plan to add missing redirects fast:
+* Add “Traffic value” or “Revenue value” columns
+* Add Source 2 for multi-source inventory
+* Add “Redirect intent” when one-to-one mapping is not possible
+* Add “Owner” if redirects are implemented by multiple teams
 
 #### Common redirect mistakes to avoid
 
@@ -59,3 +48,23 @@ Check what you used:
 Redirect planning becomes easier when you know which URLs changed. A **Demo Migration** helps you confirm URL structure outcomes early. The SEO URL Redirects option helps carry old URL paths into the new site’s redirect system when appropriate.
 
 If maintaining SEO continuity is crucial for you, contact Next-Cart's expert through **Live Chat** to discuss your needs and expected results after migration. This will ensure you get personalized support and guidance for a smooth execution that aligns with your goals.
+
+#### FAQs
+
+<details>
+
+<summary><strong>Should we always use 301?</strong></summary>
+
+Not necessarily. Most migration redirects are 301s because they indicate a permanent change. However, if the change is only temporary, a 302 redirect is the appropriate option.
+
+Understanding when to use each can help ensure your website redirects are effective and accurate.
+
+</details>
+
+<details>
+
+<summary><strong>When is the best time to test redirects?</strong></summary>
+
+It's advisable to perform testing prior to the cutover whenever possible, and then conduct a follow-up test after the cutover to ensure that real routing conditions are functioning correctly.
+
+</details>
