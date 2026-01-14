@@ -120,10 +120,3 @@
 * [Migration Risk Register Template](worksheet-and-template/migration-risk-register-template.md)
 * [QA Validation Worksheet](worksheet-and-template/qa-validation-worksheet.md)
 * [Redirect Planning Worksheet](worksheet-and-template/redirect-planning-worksheet.md)
-
-## Governance
-
-* [Terms of Service](governance/quickstart.md)
-* [Privacy & GDPR Compliance](governance/quickstart-1.md)
-* [Data Security](governance/quickstart-2.md)
-* [Refund Policy](governance/quickstart-3.md)
