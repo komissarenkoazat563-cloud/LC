@@ -1,0 +1,129 @@
+# Table of contents
+
+## Getting Started
+
+* [Learning Center Overview](README.md)
+* [How to Use the Learning Center](getting-started/quickstart-1.md)
+
+## Migration Fundamentals
+
+* [The Beginner’s Guide to E-commerce Migration](migration-fundamentals/quickstart/README.md)
+  * [Shopping Cart Migration 101: Definition, Goals, and Outcomes](migration-fundamentals/quickstart/quickstart.md)
+  * [When Is the Right Time to Replatform?](migration-fundamentals/quickstart/quickstart-1.md)
+  * [Migration Readiness Scorecard](migration-fundamentals/quickstart/quickstart-2.md)
+  * [Common Risks in E-commerce Migration](migration-fundamentals/quickstart/quickstart-3.md)
+* [What You Need to Understand About Data Migration](migration-fundamentals/what-you-need-to-understand-about-data-migration/README.md)
+  * [E-commerce Data Basics: Products, Customers, and Orders](migration-fundamentals/what-you-need-to-understand-about-data-migration/e-commerce-data-basics-products-customers-and-orders.md)
+  * [Data Compatibility: What It Means and Why It Breaks](migration-fundamentals/what-you-need-to-understand-about-data-migration/data-compatibility-what-it-means-and-why-it-breaks.md)
+  * [Entity Relationships: How Store Data Connects](migration-fundamentals/what-you-need-to-understand-about-data-migration/entity-relationships-how-store-data-connects.md)
+* [SEO and Traffic Continuity in Shopping Cart Migration](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/README.md)
+  * [The SEO Migration Framework](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/the-seo-migration-framework.md)
+  * [URL Redirects 101: Why They Are Critical](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/url-redirects-101-why-they-are-critical.md)
+  * [301 vs 302 Redirects](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/301-vs-302-redirects.md)
+
+## Technical Deep Dives
+
+* [Product Data Complexity](technical-deep-dives/quickstart/README.md)
+  * [Variants vs Options vs Attributes: What’s the Difference?](technical-deep-dives/quickstart/variants-vs-options-vs-attributes-whats-the-difference.md)
+  * [Category Trees and Catalog Structure: Keeping Store Navigation Intact](technical-deep-dives/quickstart/category-trees-and-catalog-structure-keeping-store-navigation-intact.md)
+  * [Product Images and Media: How Visual Assets Are Handled](technical-deep-dives/quickstart/product-images-and-media-how-visual-assets-are-handled.md)
+  * [Preserving Product Reviews and Ratings](technical-deep-dives/quickstart/preserving-product-reviews-and-ratings.md)
+  * [What Makes Product Data Hard to Migrate](technical-deep-dives/quickstart/what-makes-product-data-hard-to-migrate.md)
+* [Customer and Order Intelligence](technical-deep-dives/quickstart-1/README.md)
+  * [Customer Accounts in Migration: Password Reality and Login Outcomes](technical-deep-dives/quickstart-1/quickstart.md)
+  * [Order History Preservation: Why Past Sales Data Matters](technical-deep-dives/quickstart-1/quickstart-1.md)
+  * [Taxes and Discounts in Migration: Core Concepts and Common Pitfalls](technical-deep-dives/quickstart-1/quickstart-2.md)
+* [Content and Marketing Continuity](technical-deep-dives/quickstart-2/README.md)
+  * [Blog and CMS Content: What Transfers and What Must Be Rebuilt](technical-deep-dives/quickstart-2/quickstart.md)
+  * [Promotions and Coupons: Rule Differences Across Platforms](technical-deep-dives/quickstart-2/quickstart-1.md)
+  * [SEO Metadata and On-Page Content: What Changes After Replatforming](technical-deep-dives/quickstart-2/quickstart-2.md)
+
+## Strategy and Planning for Migration
+
+* [The Migration Project Roadmap](strategy-and-planning-for-migration/quickstart/README.md)
+  * [Migration Roadmap: Timeline, Milestones, and Decision Points](strategy-and-planning-for-migration/quickstart/migration-roadmap-timeline-milestones-and-decision-points.md)
+  * [Building a Migration Business Case: Cost, Risk, and ROI](strategy-and-planning-for-migration/quickstart/building-a-migration-business-case-cost-risk-and-roi.md)
+  * [Roles and Responsibilities: RACI for Replatforming Projects](strategy-and-planning-for-migration/quickstart/roles-and-responsibilities-raci-for-replatforming-projects.md)
+* [Data Preparation and Cleanup](strategy-and-planning-for-migration/quickstart-1/README.md)
+  * [What to Prepare Before You Purchase a Migration Service](strategy-and-planning-for-migration/quickstart-1/quickstart.md)
+  * [Data Mapping Strategy: Structuring Data for the Target Platform](strategy-and-planning-for-migration/quickstart-1/quickstart-1.md)
+  * [Dirty Data Cleanup: How to Fix Common Data Quality Problems](strategy-and-planning-for-migration/quickstart-1/quickstart-2.md)
+
+## Platform Strategy Hubs
+
+* [Open-Source vs SaaS Tradeoffs](platform-strategy-hubs/quickstart.md)
+* [Shopify Migration Hub](platform-strategy-hubs/quickstart-1/README.md)
+  * [Shopify Fit: Who Shopify is (and is not) good for](platform-strategy-hubs/quickstart-1/shopify-fit-who-shopify-is-and-is-not-good-for.md)
+  * [Shopify Data Model Differences: What Changes and Why It Matters](platform-strategy-hubs/quickstart-1/shopify-data-model-differences-what-changes-and-why-it-matters.md)
+  * [Shopify Constraints and Risk: What It Means, Who It Affects, Mitigation Paths](platform-strategy-hubs/quickstart-1/shopify-constraints-and-risk-what-it-means-who-it-affects-mitigation-paths.md)
+  * [Pre-migration Preparation Checklist for Shopify](platform-strategy-hubs/quickstart-1/pre-migration-preparation-checklist-for-shopify.md)
+  * [Choosing the Right Approach for a Shopify Migration](platform-strategy-hubs/quickstart-1/choosing-the-right-approach-for-a-shopify-migration.md)
+  * [Shopify Validation Priorities: What to Verify Most Carefully](platform-strategy-hubs/quickstart-1/shopify-validation-priorities-what-to-verify-most-carefully.md)
+  * [Common Shopify Migration Pitfalls and Prevention](platform-strategy-hubs/quickstart-1/common-shopify-migration-pitfalls-and-prevention.md)
+* [WooCommerce Migration Hub](platform-strategy-hubs/quickstart-2/README.md)
+  * [WooCommerce Fit: Who WooCommerce is (and is not) good for](platform-strategy-hubs/quickstart-2/quickstart.md)
+  * [WooCommerce Data Model Differences: What Changes and Why It Matters](platform-strategy-hubs/quickstart-2/quickstart-1.md)
+  * [WooCommerce Constraints and Risk: Plugins and Hosting](platform-strategy-hubs/quickstart-2/quickstart-2.md)
+  * [Pre-migration Preparation Checklist for WooCommerce](platform-strategy-hubs/quickstart-2/quickstart-3.md)
+  * [Choosing the Right WooCommerce Migration Approach](platform-strategy-hubs/quickstart-2/quickstart-4.md)
+  * [WooCommerce Validation Priorities:](platform-strategy-hubs/quickstart-2/quickstart-5.md)
+  * [Common WooCommerce Migration Pitfalls and Prevention](platform-strategy-hubs/quickstart-2/quickstart-6.md)
+* [BigCommerce Migration Hub](platform-strategy-hubs/quickstart-3/README.md)
+  * [BigCommerce Fit: Who BigCommerce is (and is not) good for](platform-strategy-hubs/quickstart-3/bigcommerce-fit-who-bigcommerce-is-and-is-not-good-for.md)
+  * [BigCommerce Data Model Differences: What Changes and Why It Matters](platform-strategy-hubs/quickstart-3/bigcommerce-data-model-differences-what-changes-and-why-it-matters.md)
+  * [Constraints and Risk: What It Means, Who It Affects, Mitigation Paths](platform-strategy-hubs/quickstart-3/constraints-and-risk-what-it-means-who-it-affects-mitigation-paths.md)
+  * [Pre-migration Preparation Checklist for BigCommerce](platform-strategy-hubs/quickstart-3/pre-migration-preparation-checklist-for-bigcommerce.md)
+  * [Choosing the Right Migration Approach for BigCommerce](platform-strategy-hubs/quickstart-3/choosing-the-right-migration-approach-for-bigcommerce.md)
+  * [BigCommerce Validation Priorities: What to Verify Most Carefully](platform-strategy-hubs/quickstart-3/bigcommerce-validation-priorities-what-to-verify-most-carefully.md)
+  * [Common BigCommerce Migration Pitfalls and Prevention](platform-strategy-hubs/quickstart-3/common-bigcommerce-migration-pitfalls-and-prevention.md)
+* [Magneto Migration Hub](platform-strategy-hubs/quickstart-4/README.md)
+  * [Magento Fit: Who Magento is (and is not) good for](platform-strategy-hubs/quickstart-4/quickstart.md)
+  * [Magento Data Model Differences: What Changes and Why It Matters](platform-strategy-hubs/quickstart-4/quickstart-1.md)
+  * [Magento Constraints and Risk: What It Means, Who It Affects, Mitigation Paths](platform-strategy-hubs/quickstart-4/magento-constraints-and-risk-what-it-means-who-it-affects-mitigation-paths.md)
+  * [Pre-migration Preparation Checklist for Magento](platform-strategy-hubs/quickstart-4/pre-migration-preparation-checklist-for-magento.md)
+  * [Choosing the Right Migration Approach for Magento](platform-strategy-hubs/quickstart-4/choosing-the-right-migration-approach-for-magento.md)
+  * [Magento Validation Priorities: What to Verify Most Carefully](platform-strategy-hubs/quickstart-4/magento-validation-priorities-what-to-verify-most-carefully.md)
+  * [Common Magento Migration Pitfalls and Prevention](platform-strategy-hubs/quickstart-4/common-magento-migration-pitfalls-and-prevention.md)
+* [PrestaShop Migration Hub](platform-strategy-hubs/quickstart-5/README.md)
+  * [PrestaShop Fit: Who PrestaShop is (and is not) good for](platform-strategy-hubs/quickstart-5/quickstart.md)
+  * [PrestaShop Data Model Differences: What Changes and Why It Matters](platform-strategy-hubs/quickstart-5/quickstart-1.md)
+  * [Constraints and Risk: Modules, Multistore, URLs, and Environment Variability](platform-strategy-hubs/quickstart-5/constraints-and-risk-modules-multistore-urls-and-environment-variability.md)
+  * [Pre-migration Preparation Checklist for PrestaShop](platform-strategy-hubs/quickstart-5/pre-migration-preparation-checklist-for-prestashop.md)
+  * [Choosing the Right Migration Approach for PrestaShop](platform-strategy-hubs/quickstart-5/choosing-the-right-migration-approach-for-prestashop.md)
+  * [PrestaShop Validation Priorities: What to Verify Most Carefully](platform-strategy-hubs/quickstart-5/prestashop-validation-priorities-what-to-verify-most-carefully.md)
+  * [Common PrestaShop Migration Pitfalls and Prevention](platform-strategy-hubs/quickstart-5/common-prestashop-migration-pitfalls-and-prevention.md)
+
+## The Next-Cart Service Guide
+
+* [How Next-Cart Performs a Migration: Connection, Mapping, and Validation Flow](the-next-cart-service-guide/how-next-cart-performs-a-migration-connection-mapping-and-validation-flow.md)
+* [Demo Migration: What It Proves and How to Read Results](the-next-cart-service-guide/demo-migration-what-it-proves-and-how-to-read-results.md)
+* [Recent Data Migration: Final Sync Before Go-live](the-next-cart-service-guide/recent-data-migration-final-sync-before-go-live.md)
+
+## Choosing the Right Migration Service
+
+* [How to Choose Next-Cart Migration Service Model](choosing-the-right-migration-service/how-to-choose-next-cart-migration-service-model.md)
+* [Entity Points Explained: How Migration Scope Is Measured](choosing-the-right-migration-service/entity-points-explained-how-migration-scope-is-measured.md)
+* [When Custom Job Is Required: Common Real-World Scenarios](choosing-the-right-migration-service/when-custom-job-is-required-common-real-world-scenarios.md)
+* [Matching Your Needs to the Right Service](choosing-the-right-migration-service/matching-your-needs-to-the-right-service.md)
+
+## Post-Migration and Quality Assurance
+
+* [Data Validation Checklist: How to Confirm Migration Accuracy](post-migration-and-quality-assurance/data-validation-checklist-how-to-confirm-migration-accuracy.md)
+* [Post-Migration SEO Audit: What to Verify After Launch](post-migration-and-quality-assurance/post-migration-seo-audit-what-to-verify-after-launch.md)
+* [Go-live Checklist: Controlled Cutover and Risk Reduction](post-migration-and-quality-assurance/go-live-checklist-controlled-cutover-and-risk-reduction.md)
+* [Post-launch Monitoring Plan: What to Watch in the First 72 Hours](post-migration-and-quality-assurance/post-launch-monitoring-plan-what-to-watch-in-the-first-72-hours.md)
+
+## Worksheet and Template
+
+* [Shopping Cart Migration Plan Template](worksheet-and-template/shopping-cart-migration-plan-template.md)
+* [RACI Template for a Shopping Cart Migration Project](worksheet-and-template/raci-template-for-a-shopping-cart-migration-project.md)
+* [Migration Risk Register Template](worksheet-and-template/migration-risk-register-template.md)
+* [QA Validation Worksheet](worksheet-and-template/qa-validation-worksheet.md)
+* [Redirect Planning Worksheet](worksheet-and-template/redirect-planning-worksheet.md)
+
+## Governance
+
+* [Terms of Service](governance/quickstart.md)
+* [Privacy & GDPR Compliance](governance/quickstart-1.md)
+* [Data Security](governance/quickstart-2.md)
+* [Refund Policy](governance/quickstart-3.md)
