@@ -123,4 +123,4 @@
 
 ## Glossary
 
-* [Glossary](glossary/glossary.md)
+* [Terms & Definitions](glossary/terms-and-definitions.md)
