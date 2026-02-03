@@ -12,8 +12,6 @@ This checklist is planning-only. Use it to define what must remain true for shop
 * Categories transfer, but browsing no longer matches how customers shop.
 * SEO continuity is handled last, leading to broken high-value URLs at launch.
 
-***
-
 ### 1) Define success in shopper terms
 
 Write success criteria as customer outcomes, not admin outcomes.
@@ -26,8 +24,6 @@ Examples:
 * Priority landing pages still resolve correctly after launch.
 
 This becomes your acceptance criteria during validation. If counts match but these fail, the migration is not ready.
-
-***
 
 ### 2) Inventory module dependency and mark what is revenue-critical
 
@@ -48,8 +44,6 @@ For each revenue-critical module, note:
 
 If a module’s behavior is business-critical and not easily represented by standard platform structures, treat it as a risk item and validate early.
 
-***
-
 ### 3) Clarify combinations and variation logic before you lock scope
 
 PrestaShop uses combinations (attribute-based variations). The key question is not “do options exist,” but “do customers end up buying the same sellable items with the same pricing and inventory expectations.”
@@ -63,8 +57,6 @@ Preparation checks:
 
 If you have products with conditional option behavior or partial availability, include them in your earliest validation sample.
 
-***
-
 ### 4) Plan category structure as navigation, not storage
 
 Categories are the foundation of browsing in many PrestaShop stores, and migration risk is usually “navigation feels wrong,” not “category records are missing.”
@@ -76,8 +68,6 @@ Preparation checks:
 * Flag “tag-like” category patterns (heavy multi-assignment) and decide whether some of that intent should become structured attributes instead.
 
 Your validation plan should prioritize browse journeys, not just category counts.
-
-***
 
 ### 5) Identify the product meaning that must be preserved
 
@@ -97,8 +87,6 @@ Classify each item:
 
 This prevents scope drift and makes validation clearer.
 
-***
-
 ### 6) If multistore is involved, define scope rules explicitly
 
 PrestaShop multistore multiplies decisions. Preparation must define what “in scope” actually means.
@@ -114,8 +102,6 @@ Preparation checks:
 * Define validation ownership per storefront context.
 
 If stores behave differently, plan separate validation priorities per storefront. Do not assume one sample covers all.
-
-***
 
 ### 7) Build a priority URL and SEO continuity plan
 
@@ -133,8 +119,6 @@ Preparation checks:
 
 Validate priority URLs early in your validation cycle, not during launch week.
 
-***
-
 ### 8) Choose a validation sample that reflects real complexity
 
 A strong Demo Migration sample is not random. It intentionally includes the items most likely to fail.
@@ -150,8 +134,6 @@ Include:
 
 Your goal is not “does it import.” Your goal is “does it behave correctly for shoppers.”
 
-***
-
 ### 9) Define validation responsibilities and sign-off rules
 
 Validation is faster when you define owners and sign-off criteria early.
@@ -164,8 +146,6 @@ Preparation checks:
 * Who signs off on URL continuity (priority URLs and redirects)
 
 Then define what “pass” means for the demo sample. If the demo reveals structural mismatch, treat it as a decision point for approach selection.
-
-***
 
 ### 10) Choose the right approach based on risk and evidence
 
@@ -181,8 +161,6 @@ Use Demo Migration results to decide:
 * Standard Migration when mapping is clean and risk is low
 * Managed Migration when you need expert-led mapping and guided QA
 * Custom Migration when preserving meaning requires special handling (Custom Jobs)
-
-***
 
 ### Conclusion
 
