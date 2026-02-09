@@ -17,7 +17,8 @@
   * [Data Compatibility: What It Means and Why It Breaks](migration-fundamentals/what-you-need-to-understand-about-data-migration/data-compatibility-what-it-means-and-why-it-breaks.md)
   * [Entity Relationships: How Store Data Connects](migration-fundamentals/what-you-need-to-understand-about-data-migration/entity-relationships-how-store-data-connects.md)
 * [SEO and Traffic Continuity in Shopping Cart Migration](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/README.md)
-  * [The SEO Migration Framework](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/the-seo-migration-framework.md)
+  * [SEO and Traffic Continuity: What Changes During Migration](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/the-seo-migration-framework.md)
+  * [The SEO Migration Framework](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/the-seo-migration-framework-1.md)
   * [URL Redirects 101: Why They Are Critical](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/url-redirects-101-why-they-are-critical.md)
   * [301 vs 302 Redirects](migration-fundamentals/seo-and-traffic-continuity-in-shopping-cart-migration/301-vs-302-redirects.md)
 
