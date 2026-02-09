@@ -24,7 +24,7 @@
 
 ## Technical Deep Dives
 
-* [Product Data Complexity](technical-deep-dives/quickstart/README.md)
+* [Product Data Complexity in Shopping Cart Migration](technical-deep-dives/quickstart/README.md)
   * [Variants vs Options vs Attributes: What’s the Difference?](technical-deep-dives/quickstart/variants-vs-options-vs-attributes-whats-the-difference.md)
   * [Category Trees and Catalog Structure: Keeping Store Navigation Intact](technical-deep-dives/quickstart/category-trees-and-catalog-structure-keeping-store-navigation-intact.md)
   * [Product Images and Media: How Visual Assets Are Handled](technical-deep-dives/quickstart/product-images-and-media-how-visual-assets-are-handled.md)
