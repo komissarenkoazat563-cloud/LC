@@ -97,24 +97,6 @@ If campaigns, promotions, or content-driven SEO are meaningful for your store, d
 
 <details>
 
-<summary><strong>Can I migrate blog posts to Wix?</strong></summary>
-
-In many cases, blog content can be migrated, but results depend on how the target platform stores content and how your current system structures posts, categories, and media. If content is a major traffic driver, treat blog migration as an explicit scope item and validate a representative set before go-live.
-
-</details>
-
-<details>
-
-<summary><strong>Can I migrate only blog posts published after a certain date?</strong></summary>
-
-Sometimes. Selective migration can be useful when older posts are outdated or low value. However, it's crucial to first analyze which content actually drives traffic and whether older posts still attract valuable backlinks or maintain search rankings before excluding them. Removing high-value content, regardless of age, can negatively impact your SEO.
-
-To implement a data filter for migration, you will typically need to leverage a Custom Migration Service. This model will enable you to apply a specific filter to exclude any data published before your chosen date.
-
-</details>
-
-<details>
-
 <summary><strong>Can I migrate only valid or unused coupons?</strong></summary>
 
 In some cases, coupon scope can be filtered, but “valid,” “unused,” and “active” can mean different things depending on how the source platform tracks coupon rules and history. If coupon selection criteria matter, define the rule clearly and validate it against real promotion scenarios.
