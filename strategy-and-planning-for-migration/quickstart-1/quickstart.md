@@ -22,94 +22,109 @@ metaLinks:
 
 Before you purchase a migration service, your goal is simple: reduce uncertainty. The better your preparation, the easier it becomes to choose the right service model, avoid scope creep, and prevent delays caused by late discovery.
 
-This page gives you a buyer-friendly preparation checklist. It focuses on what you should clarify and gather, not on tool steps.
+This checklist focuses on what to clarify and gather at a decision level, not tool steps.
 
-#### 1) Clarify the outcome you want
+### Start with outcomes, not data lists
 
-Start with business outcomes, not data lists:
+Instead of starting with “we need to migrate everything,” start with what must remain true after launch.
 
-* What must remain true for conversion after launch?
-* What must remain true for operations and customer support?
-* What must remain true for marketing continuity and trust?
+#### Conversion outcomes
 
-Examples of “must remain true” outcomes:
+* Shoppers can browse top categories and find products quickly.
+* Variants and options behave the way customers expect.
+* Pricing and promotions remain credible at checkout.
 
-* Shoppers can browse top categories and select variants correctly
-* Support can find customer orders and resolve issues quickly
-* Key trust signals are present on best sellers
-* Old links do not lead to dead ends after launch
+#### Operations and support outcomes
 
-#### 2) Define what data is truly in scope
+* Your team can find orders and resolve issues quickly.
+* Customer accounts behave in a predictable way (including realistic login outcomes).
+* Order history is usable enough to support returns, exchanges, and repeat purchases.
 
-Most stores assume “everything” is in scope. That usually creates confusion later. Instead, define scope by category:
+#### Marketing and trust outcomes
 
-Core migration categories:
+* Priority landing pages remain reachable and intent-consistent.
+* Old links do not lead to dead ends.
+* The store still communicates trust where it matters most (best sellers, policies, key content pages).
 
-* Products and variants
+These outcomes become the basis for scope decisions and acceptance criteria.
+
+### Define what data is truly in scope
+
+Most teams assume “everything” is in scope. That usually creates confusion later. Define scope by category so you can make tradeoffs intentionally.
+
+#### Core categories
+
+* Products (including variants/options)
 * Categories and catalog structure
 * Customers
 * Orders
+* Blog posts (if applicable)
 
-Common supporting categories that may require planning:
+#### Supporting categories that often require explicit planning
 
 * Product images and variant images
 * Reviews and ratings
-* Blog and CMS content
-* URL path continuity for redirects when URLs change
+* CMS pages and marketing landing pages
+* URL path continuity (redirect planning when URLs change)
+* Promotions and coupons that drive meaningful revenue
 
-If you cannot decide scope fully yet, define what is most important to validate first.
+If you cannot finalize scope yet, define what is most important to validate first.
 
-#### 3) Identify where complexity is likely
+### Identify early complexity signals
 
-A few complexity signals to look for:
+You do not need technical detail to spot where risk lives. Look for signals that usually drive extra planning:
 
-* Lots of variant combinations or inconsistent option naming
-* Deep category trees or curated collections
-* App-driven fields that influence filtering, pricing, or product display
-* Reviews stored in third-party systems
-* Promotions that rely on complex rule behavior
+* many variant combinations or inconsistent option naming
+* deep category trees, curated collections, or complex navigation rules
+* app-driven fields that influence filtering, pricing, or product display
+* reviews stored in third-party systems
+* promotions that rely on complex rule behavior (thresholds, exclusions, stacking)
+* content-heavy stores where blog/CMS pages are traffic drivers
 
-You do not need technical detail here. You just need to know where the risk lives.
+Complexity signals help you choose the right approach before you commit to a timeline.
 
-#### 4) Choose your “validation sample” early
+### Choose a “validation sample” before you buy
 
-Instead of validating everything at once, pick a sample that reveals complexity fast:
+Instead of validating everything at once, pick a sample that reveals complexity fast. A strong validation sample usually includes:
 
-* Top 10 best sellers
+* Top 5-10 best sellers
 * A few products with the most complex variants
-* Top 3 to 5 categories by revenue and traffic
-* A set of representative orders (discounts, multi-item, different time ranges)
-* A few marketing-critical pages if content matters for your store
+* Top 3–5 categories by revenue and traffic
+* A representative set of orders (multi-item, discounts, different time ranges)
+* A few marketing-critical pages if content matters to your store
 
-This sample becomes your baseline for early review.
+This sample becomes your baseline for early review and expectation alignment. If you plan to test before committing, use the sample with **Demo Migration: What It Proves and How to Read Results**.
 
-#### 5) Align ownership
+### Align ownership before the project starts
 
-Before purchase, confirm:
+Before purchase, confirm ownership for the work that prevents surprise:
 
 * Who owns scope decisions?
 * Who owns validation sign-off?
 * Who owns go-live readiness?
 * Who owns SEO continuity priorities?
+* Who owns promotions and conversion-critical checkout behavior?
 
-Migration is smoother when the decision owners are clear early.
+Even a small team benefits from named owners. When ownership is unclear, delays and last-minute compromises become the default.
 
-#### How Next-Cart supports this preparation stage
+### How Next-Cart helps you make pre-purchase decisions more predictable
 
-Many teams struggle because they cannot tell whether they need basic execution help or deeper guidance. Next-Cart helps clarify that before you commit:
+Next-Cart reduces uncertainty before you commit by turning assumptions into evidence:
 
-* **Entity Points** provide a measurable view of scope so you can size effort and cost realistically.
-* **Demo Migration** lets you validate your sample with real results, not assumptions.
-* The service model choice becomes clearer:
-  * **Standard** when scope and mapping are straightforward
-  * **Managed** when you want more guided mapping and validation support
-  * **Custom** when preserving meaning requires custom handling through Custom Jobs
+* **Entity Points** help quantify migration scope early so effort and cost are sized realistically.
+* A **Demo Migration** helps validate how your real store data translates using your sample, not generic expectations.
+* Service model becomes clearer:
+  * **Standard Migration** is ideal when your data scope and mapping are straightforward. You maintain control over the execution with the benefit of 24/7 expert support to guide you.
+  * **Managed Migration** is a hands-free option. Our professionals execute the entire migration process, leaving you only to verify that the final results meet your expectations.
+  * **Custom Migration** is best suited for projects with complex databases and structures. Choose this when your data integrity requires custom handling (via Custom Jobs) or when you have specialized needs that demand a unique solution to preserve data meaning.
 
-#### Conclusion
+For the smoothest transition from planning to execution, your next critical step is to define how your current data will map to the new platform's structure. Consult our resource: **Data Mapping Strategy: Structuring Data for the Target Platform.**
 
-Preparation before purchase is about making the project predictable. Define must-have outcomes, scope, complexity signals, and a validation sample. Then choose a service model that matches your store reality and your internal capacity.
+### Conclusion
 
-If you are unsure what service model you need, run a **Demo Migration** using your validation sample to confirm how your store data translates.
+A practical industry pattern is that migration “surprises” are rarely mysterious. They are the predictable result of unclear scope, unowned validation, and assumptions that were never tested. Teams that prepare well do not prepare by documenting everything. They prepare by defining outcomes, spotting complexity signals, and validating a representative sample so decisions are evidence-based before money and timelines lock.
+
+If you are deciding whether to purchase a migration service now, start by building a validation sample and clarifying your must-have outcomes (conversion, operations, and SEO continuity). If you want expert help identifying where your store is most likely to introduce scope creep and which service model is safest for your situation, reach out via Live Chat. Next-Cart can review your priorities, align expectations using Demo Migration results, and help you choose the right service approach without last-minute complications.
 
 #### FAQs
 
@@ -137,3 +152,22 @@ Yes. Size is not the main risk. Structure is. A demo helps confirm how variants,
 
 </details>
 
+<details>
+
+<summary><strong>What if my source store has customizations?</strong></summary>
+
+Customizations can change what “equivalent” looks like on the target platform. The safest approach is to identify which custom behaviors are business-critical and validate a representative sample early so you can choose the right service approach.
+
+</details>
+
+<details>
+
+<summary><strong>Can I migrate only specific data instead of everything?</strong></summary>
+
+In many cases, yes, you can. Migrating all data isn't always necessary or efficient. Scope is typically defined by the data categories and outcomes that matter most to your business, for example, prioritizing essential items like products, customers, and recent orders first.
+
+The key to successful selective migration is explicitly defining and agreeing on the scope before execution.
+
+To perform a selective migration with precise control over which data is moved, you will need to leverage our Custom Migration Service. This model allows you to create specific data filters and logic tailored to your exact requirements, ensuring you only migrate the data you truly need.
+
+</details>
