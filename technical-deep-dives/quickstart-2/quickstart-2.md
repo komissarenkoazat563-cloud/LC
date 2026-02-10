@@ -102,3 +102,13 @@ Both. Titles influence click behavior. On-page content influences relevance and 
 By helping you scope what matters, validating representative samples early, and supporting URL path continuity options for redirect planning when URLs change.
 
 </details>
+
+<details>
+
+<summary><strong>Does a plugin need to be installed to complete the SEO URL migration?</strong></summary>
+
+It depends on the target platform’s redirect and URL management capabilities. What matters most is confirming early how redirect handling will be managed on the new store and validating that priority URL paths resolve correctly after cutover.
+
+For e-commerce platforms that do not support URL Redirects by default, you will need to install a [URL Redirects plugin](https://next-cart.com/faq/how-does-seo-url-redirects-plugin-work/) provided by Next-Cart in order to keep the old URL paths alive and redirect to the new URL paths.
+
+</details>

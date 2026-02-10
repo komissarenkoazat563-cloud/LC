@@ -92,25 +92,3 @@ Validation goals should be outcome-based:
 A practical industry takeaway is that content and marketing continuity is not about perfect completeness. It is about protecting momentum. Stores lose demand when priority pages disappear, campaign destinations break, promotions behave differently, or page intent shifts enough to confuse customers and search engines. When you prioritize the pages and promotion scenarios that actually drive revenue and traffic, validate them early, and assign ownership for post-launch monitoring, marketing continuity becomes manageable instead of chaotic.
 
 If campaigns, promotions, or content-driven SEO are meaningful for your store, define a “priority marketing set” before go-live: top landing pages, top content pages, and revenue-critical discounts. If you want expert help identifying what should be preserved versus rebuilt and which promo scenarios are most likely to behave differently on your target platform, reach out via Live Chat. Next-Cart can help you scope marketing continuity risk, choose a representative validation sample, and align on the safest service approach for protecting content and promotion outcomes during migration.
-
-#### FAQs
-
-<details>
-
-<summary><strong>Can I migrate only valid or unused coupons?</strong></summary>
-
-In some cases, coupon scope can be filtered, but “valid,” “unused,” and “active” can mean different things depending on how the source platform tracks coupon rules and history. If coupon selection criteria matter, define the rule clearly and validate it against real promotion scenarios.
-
-To implement a data filter for migration, you will typically need to leverage a Custom Migration Service. This model will enable you to apply a specific filter to exclude any data you don't need to migrate.
-
-</details>
-
-<details>
-
-<summary><strong>Does a plugin need to be installed to complete the SEO URL migration?</strong></summary>
-
-It depends on the target platform’s redirect and URL management capabilities. What matters most is confirming early how redirect handling will be managed on the new store and validating that priority URL paths resolve correctly after cutover.
-
-For e-commerce platforms that do not support URL Redirects by default, you will need to install a [URL Redirects plugin](https://next-cart.com/faq/how-does-seo-url-redirects-plugin-work/) provided by Next-Cart in order to keep the old URL paths alive and redirect to the new URL paths.
-
-</details>
