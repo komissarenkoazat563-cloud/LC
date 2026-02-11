@@ -17,7 +17,7 @@ Instead of treating every record as equal, Entity Points apply different weights
 
 Supporting data may still be included in scope depending on platform support, but it does not increase the Entity Points calculation.
 
-### How Entity Points are calculated
+#### How Entity Points are calculated
 
 Each core entity type has a coefficient:
 
@@ -153,7 +153,7 @@ Entity Points help you estimate scope using weighted counts, but the plan behavi
 
 If you want to confirm scope in a practical way, running a **Demo Migration** gives you an early view of how key entities map and what needs attention in validation. When the store is more complex or you want a clearer readout, you can also request an **assisted demo** by sharing a small sample dataset so the Next-Cart team can run the demo and provide a structured results summary.
 
-If questions come up while you are sizing scope or deciding how much help you need, **Live Chat** is the fastest way to get guidance on plan fit and whether Standard Migration, Managed Migration, or Custom Migration is the right match.
+If you want expert help translating scope into the safest plan and service model, reach out via Live Chat. Next-Cart can help you size Entity Points realistically, anticipate new-data growth before go-live, and avoid interruptions caused by under-scoping.
 
 #### FAQs
 
