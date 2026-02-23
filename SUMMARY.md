@@ -107,8 +107,8 @@
   * [OpenCart Constraints and Risk](platform-strategy-hubs/quickstart-5-1-1/constraints-and-risk-modules-multistore-urls-and-environment-variability.md)
   * [Pre-migration Preparation Checklist for Square](platform-strategy-hubs/quickstart-5-1-1/pre-migration-preparation-checklist-for-prestashop.md)
   * [Choosing the Right Migration Approach for OpenCart](platform-strategy-hubs/quickstart-5-1-1/choosing-the-right-migration-approach-for-prestashop.md)
-  * [Square Migration Validation Priorities](platform-strategy-hubs/quickstart-5-1-1/prestashop-validation-priorities-what-to-verify-most-carefully.md)
-  * [Common PrestaShop Migration Pitfalls and Prevention](platform-strategy-hubs/quickstart-5-1-1/common-prestashop-migration-pitfalls-and-prevention.md)
+  * [OpenCart Migration Validation Priorities](platform-strategy-hubs/quickstart-5-1-1/prestashop-validation-priorities-what-to-verify-most-carefully.md)
+  * [Common OpenCart Migration Pitfalls and Prevention](platform-strategy-hubs/quickstart-5-1-1/common-prestashop-migration-pitfalls-and-prevention.md)
 
 ## Next-Cart Migration Service
 
