@@ -109,8 +109,7 @@
   * [Choosing the Right Migration Approach for OpenCart](platform-strategy-hubs/quickstart-5-1-1/choosing-the-right-migration-approach-for-prestashop.md)
   * [OpenCart Migration Validation Priorities](platform-strategy-hubs/quickstart-5-1-1/prestashop-validation-priorities-what-to-verify-most-carefully.md)
   * [Common OpenCart Migration Pitfalls and Prevention](platform-strategy-hubs/quickstart-5-1-1/common-prestashop-migration-pitfalls-and-prevention.md)
-
-## Group 1
+* [Page 1](platform-strategy-hubs/page-1.md)
 
 ## Next-Cart Migration Service
 

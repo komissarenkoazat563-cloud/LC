@@ -1,33 +1,39 @@
 # Square Migration Hub
 
-Square is best known for pairing **payments and point-of-sale** with a unified commerce system, then extending that system into **Square Online** for selling through an online storefront. For many sellers, Square’s biggest advantage is operational simplicity: one place to manage items, inventory, orders, customers, and fulfillment settings across channels. Square’s ecosystem also includes a built-in customer directory and customer account experiences that can support repeat purchase and order tracking.
+Square is a broader commerce ecosystem (payments, POS, catalog, customer directory, and more). Square Online is the online storefront layer that connects to your Square catalog and day-to-day operations. If you are changing eCommerce platforms and considering Square Online as the target, migration success depends less on “can we import records” and more on “will the store behave correctly for buying, support, and inventory operations after launch”.
 
-#### What Square is good at (in a migration context)
+This hub helps you plan a shopping cart migration to Square Online with realistic expectations. It focuses on what typically changes, where surprises happen, and what to validate early so you do not discover platform behavior late in the project.
 
-* **Unified inventory across channels**, syncing Square Online with the Square catalog so quantities update as customers buy online.
-* **Omnichannel fulfillment options** such as pickup and local delivery (depending on setup and location).
-* **Customer directory and account experiences** that support repeat purchase and order tracking.
-* **Multiple websites under one business account**, with plan-dependent capabilities.
+### What Square is good at in a migration context
 
-#### What changes in a migration, at a glance
+Square Online is often a practical target when you want operational simplicity across online and in-person sales. Many businesses choose it because they want fewer systems to reconcile across catalog, inventory, orders, and customer history.
 
-* **Catalog structure:** how products, options, and purchasable variations are represented
-* **Customer records:** what a customer profile contains and how order history appears
-* **Order history behavior:** how historical orders are treated (especially totals and payment signals)
-* **Operational settings:** fulfillment methods, tax logic, shipping expectations
-* **SEO continuity:** URL patterns and redirects (Square Online supports URL redirects with specific rules)
+In migration terms, that “unified commerce” model can be a benefit, but it also means you should validate a few behavior areas early because Square may not interpret equivalent data the same way another cart does.
 
-### How Next-Cart helps you reduce uncertainty
+### What changes in a migration, at a glance
 
-A Demo Migration is the fastest risk reducer because it proves how real data behaves in the target store before you scale. Next-Cart’s standard demo approach is built around representative complexity rather than randomness, so your demo reveals the behaviors that typically surprise teams.
+Most Square migration risk concentrates in a few areas:
+
+* **Catalog structure and purchasable choices**\
+  Products, options, and variations are not only fields. They define how customers select and buy. If your source store has complex variants, add-ons, or personalization behavior, you should treat this as a primary validation area.
+* **Customer records and account history**\
+  The key question is not only whether customers import, but whether customer profiles support the workflows your team relies on, such as order lookups, reordering expectations, or segmentation.
+* **Order history interpretation**\
+  In many migrations, orders are imported for historical continuity and reporting context, not as real purchases. Square’s order and refund tools are designed around transaction flows, so teams should validate how historical orders appear and what actions could affect them.
+* **Inventory and channel sync expectations**\
+  Square commonly emphasizes inventory consistency across channels. If inventory accuracy and fulfillment operations are important, validate how inventory-relevant behavior presents after migration.
+* **SEO continuity and URL behavior**\
+  If URLs change, redirect coverage becomes a major risk-control lever. Square Online can support redirects, but rules may apply (for example, constraints such as one redirect per page and restrictions on certain URL types). If organic traffic is important, review **SEO and Traffic Continuity in Shopping Cart Migration** before finalizing scope decisions.
 
 ### Conclusion
 
-Square Online can be an excellent destination for sellers who value operational simplicity across POS and online. The migration win condition is not simply getting items, customers, and orders into the account, but ensuring the operational workflows your team relies on still behave correctly: inventory syncing, fulfillment options, customer history visibility, and the way historical orders present in the Square ecosystem.
+Square Online can be a strong target when operational simplicity and unified commerce matter more than deep customization. The most common problems happen when teams assume Square will behave like the old cart in the details that drive conversion and support, such as variation behavior, category browsing intent, historical order interpretation, and URL continuity.
 
-When teams run into trouble migrating to Square, it is usually because they discover platform-specific behavior late. The safest approach is to validate the few areas that drive most revenue and support volume: how variations are purchased, how categories are browsed, how order history is interpreted, and how URLs are resolved.
+Separate “record transfer” from “store behavior”. When you validate the few workflows that truly decide outcomes, the migration becomes predictable instead of reactive.
 
-If you want to de-risk decisions quickly, start by running a Demo Migration with a sample that includes your most complex products and a few representative orders. If you prefer, you can also request that Next-Cart run the Demo Migration using your provided sample data and share a clear results summary. For fast guidance on scoping, mapping expectations, and service model selection, reach out via Live Chat and we will help you translate demo findings into a practical plan.
+If you want to reduce uncertainty quickly, run a Demo Migration using a representative sample: best sellers, your most complex products, meaningful category paths, and a small set of orders that reflect real operational scenarios.
+
+If you prefer, you can provide sample data and ask Next-Cart to run the Demo Migration and share results so you can confirm structure decisions early and choose the safest approach before committing to the full run. For fast guidance on scope, mapping expectations, and service model selection, reach out via Live Chat.
 
 #### FAQs
 
