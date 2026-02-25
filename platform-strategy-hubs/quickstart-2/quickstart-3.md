@@ -9,7 +9,7 @@ metaLinks:
 
 WooCommerce migrations succeed when preparation focuses on **environment variability**: plugins, theme behavior, hosting quality, and how WordPress structures store data. WooCommerce can store almost anything, but that flexibility creates risk when store meaning is spread across extensions and custom fields rather than a single standardized platform model.
 
-This checklist helps you prepare for a WooCommerce migration in a way that reduces surprises during mapping and validation. It is intentionally planning-only and does not include setup steps, exports, or troubleshooting.
+This checklist helps you prepare for a WooCommerce migration in a way that reduces surprises during mapping and validation.
 
 #### What “good preparation” means for WooCommerce
 
@@ -48,13 +48,13 @@ A migration sample is the fastest way to validate feasibility. It should be repr
 
 Plugins often define essential WooCommerce behavior and may store data in custom post types or custom tables.
 
-**Prepare:**
+**Prepare**:
 
 * A full plugin list, including:
   * revenue-critical plugins (subscriptions, booking, bundles, product add-ons)
   * operations-critical plugins (shipping, fulfillment, ERP/accounting connectors)
   * marketing and SEO plugins (feeds, tracking, SEO tools)
-* For each plugin:
+* For each plugin, document:
   * what customer-facing behavior it affects
   * what data it stores that you cannot lose
   * whether equivalent behavior is required after migration
@@ -70,7 +70,7 @@ Plugins often define essential WooCommerce behavior and may store data in custom
 
 **3) Identify meaning-critical custom fields and where they must be usable**
 
-WooCommerce relies heavily on postmeta, and plugins often add more metadata.
+WooCommerce relies heavily on metadata, and plugins often add even more. Custom fields can affect discoverability, pricing logic, and operational workflows.
 
 **Prepare:**
 
@@ -107,108 +107,87 @@ WooCommerce variable products can look “complete” while purchase behavior ch
 **Why this matters:**
 
 * WooCommerce variations often rely on theme templates and extensions to create the selection experience.
-* Variation behavior is a “meaning” risk, not only a “data” risk.
+* Migration success should be measured by buying outcomes, not by whether variations exist as records.
 
 **Output:**
 
-* A variation integrity checklist for your demo sample products.
+* A short “variation truth” checklist describing what must remain true on the product page and in checkout.
 
-**5) Define order history expectations and confirm storage-mode assumptions**
+**5) Decide early whether order history behavior matters to your operations**
 
-WooCommerce order history behavior can differ depending on order storage mode (including HPOS) and extension compatibility.
+Order history can be in scope and still fail operationally if workflows or reporting expectations diverge in the target environment.
 
 **Prepare:**
 
-* Decide what order history must support:
-  * customer service workflows (lookup and context)
-  * reporting continuity needs
-  * subscription or booking workflows (if relevant)
-* Identify “representative orders” to validate (refunds, renewals, partial fulfillment patterns).
+* Decide what order history must support after go-live:
+  * support workflows (lookup speed, visibility of notes, customer context)
+  * fulfillment workflows (status meaning, operational flags)
+  * refund and return expectations
+* Identify a small set of representative orders to validate:
+  * typical orders
+  * edge-case orders (partial refunds, complex shipping, multiple items, discount-heavy)
 
 **Why this matters:**
 
-* Order history value is measured by usability, not just presence.
-* Extension compatibility can shape how orders behave in the target environment.
+* The same orders can behave differently depending on how the WooCommerce environment stores and uses order data and how extensions interpret it.
 
 **Output:**
 
-* A clear “order history success definition” and a small set of representative orders for validation.
+* A small “order usability” validation set aligned to real support and fulfillment workflows.
 
-**6) Decide URL and permalink continuity strategy early**
+**6) Establish permalink and URL continuity expectations before you migrate**
 
-WooCommerce URL structure is controlled by WordPress permalinks and base settings.
+WooCommerce URL structure is a configuration decision. If your current platform uses a different URL pattern, assume URL continuity planning will matter.
 
-**Prepare:**
+Prepare:
 
-* A list of priority URLs that must remain reachable:
+* Identify priority URLs:
+  * top revenue products
   * top organic landing pages
-  * best-selling products
-  * key categories and content pages
-* Decide whether you aim for:
-  * URL structure preservation
-  * controlled structure changes with redirects
-  * selective preservation for top pages
+  * key categories/collections
+  * high-intent blog-to-product pathways
+* Define what “good” looks like:
+  * shoppers can find key pages on day one
+  * old paths resolve to correct new destinations
 
-**Why this matters:**
+Why this matters:
 
-* URL continuity is a planning deliverable, not a cleanup task.
-* Permalink decisions can change which redirects you need and how much SEO risk exists.
+* SEO continuity is often a structure decision, not just a data decision.
 
-**Output:**
+Output:
 
-* A priority URL plan that can be reviewed and validated early.
+* A prioritized URL mapping plan that can be validated before go-live.
 
-**7) Validate hosting readiness as a project risk, not an afterthought**
+**7) Confirm the target environment is ready for realistic validation**
 
-WooCommerce performance and stability outcomes depend on hosting and configuration quality.
+A WooCommerce store’s behavior is influenced by hosting, theme decisions, and plugin compatibility. Validation is only meaningful when the environment reflects the intended reality.
 
 **Prepare:**
 
-* Confirm the target environment supports:
-  * expected traffic patterns
-  * plugin stack performance
-  * reliable backups and monitoring discipline
-* Treat hosting and plugin stack stability as part of go-live readiness.
+* Confirm who owns:
+  * theme decisions that affect navigation and product display
+  * plugin stack decisions that affect behavior
+  * hosting quality expectations for performance and stability
+* Define what counts as sign-off:
+  * which stakeholders approve customer-facing outcomes
+  * which stakeholders approve operational workflows
+  * which URLs must be verified as “findable”
 
 **Why this matters:**
 
-* A correct migration can still feel like a failure if the target store is slow or unstable during launch.
+* Many late surprises are not data problems. They are environment alignment problems.
 
 **Output:**
 
-* A simple go-live readiness checklist for hosting and performance expectations.
-
-**8) Assign sign-off owners and define “what must remain true”**
-
-Preparation is incomplete until success criteria and ownership exist.
-
-**Prepare:**
-
-* Acceptance criteria for:
-  * variable product buying behavior
-  * navigation and browsing paths
-  * custom field usability
-  * order history workflows
-  * SEO continuity for priority URLs
-* Owners for each domain:
-  * merchandising owner
-  * operations/support owner
-  * SEO owner
-
-**Why this matters:**
-
-* WooCommerce risk is often about scope ambiguity and late-stage surprises.
-* Ownership turns validation into an objective sign-off process.
-
-**Output:**
-
-* A one-page validation and sign-off plan.
+* A simple ownership and sign-off plan so validation is faster and decisions do not stall.
 
 #### Conclusion
 
-WooCommerce preparation is about making variability visible: plugin-owned behavior, custom fields that drive discovery or pricing, order usability, permalink decisions, and hosting readiness. When you define what must remain true and validate those outcomes early with a representative sample, you reduce the most common WooCommerce migration surprises.
+WooCommerce preparation is less about collecting more data and more about clarifying what must remain true after the migration. When you inventory plugin dependencies, identify meaning-critical custom fields, validate variation behavior, and define URL continuity expectations early, you reduce the most common WooCommerce risk: a store that looks migrated but behaves differently in real customer and operational workflows.
 
-If you want to confirm direction quickly, run a Demo Migration using your high-signal sample list, then review results against the acceptance criteria you defined above. If you prefer, you can ask Next-Cart to run the Demo Migration using your provided sample data and share results with you. For plugin-heavy stores or complex requirements, Live Chat is the fastest way to scope what must be preserved and choose the safest approach.
+If you only do one preparation step, build a high-signal Demo Migration sample that includes plugin-driven products, complex variable products, and the fields and URLs your business relies on. That single sample can reveal most scope and mapping risks before they become expensive.
+
+You can move faster with less uncertainty by running a Demo Migration using a representative sample from your store, then reviewing the results to confirm what migrates cleanly versus what needs special handling. If you prefer, you can provide sample data and ask Next-Cart to run the Demo Migration and share findings with you, then use Live Chat to align scope and choose the safest service model for your WooCommerce target.
 
 #### FAQs
 
@@ -252,6 +231,6 @@ WooCommerce has extensions specifically for product attachments and uploads, whi
 
 <summary><strong>What is the most common preparation mistake for WooCommerce migrations?</strong></summary>
 
-Treating the project like a simple “data copy” and delaying plugin, custom field, and URL decisions. WooCommerce migrations are safest when variability is identified early and validated using a representative sample.
+Treating the project like a simple data copy and delaying plugin, custom field, and URL decisions. WooCommerce migrations are safest when variability is identified early and validated using a representative sample.
 
 </details>

@@ -105,7 +105,7 @@ Shopify supports URL redirects, but it has reserved paths and limitations. For e
 
 Because of this, URL strategy is not optional when your existing URLs differ from Shopify’s structure.
 
-What to validate:
+**What to validate:**
 
 * Priority old URL paths resolve to the correct new destinations after go-live.
 * Redirects comply with Shopify restrictions and reserved paths.

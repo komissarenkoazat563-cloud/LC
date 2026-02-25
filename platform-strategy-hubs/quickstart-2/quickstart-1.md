@@ -5,105 +5,152 @@ metaLinks:
       https://app.gitbook.com/s/EwOn3si2UOVRL65zVOMg/connection-guides/quickstart-3/quickstart-1
 ---
 
-# WooCommerce Data Model Differences: What Changes and Why It Matters
+# WooCommerce Data Model Differences
 
-WooCommerce is built on WordPress structures. That makes it highly extensible, but it also means data often lives across post types, taxonomies, and metadata, plus plugin-added fields. This matters in shopping cart migration because meaning can be distributed across many places, not stored in one obvious “product record”.
+WooCommerce is built on WordPress structures. That makes it highly extensible, but it also means “commerce data” is often distributed across multiple layers rather than stored in one standardized product record. In a shopping cart migration, this affects how data behaves after it lands in the new store, how it displays, and what it can drive without additional configuration.
 
-When you migrate into WooCommerce, the question is rarely “Can the data exist?” The more important question is “Will the store behave the same way after the data lands?” That is especially true when customer-facing behavior is created by themes and plugins rather than by a single standardized platform model.
+This article explains the most important WooCommerce data model differences you are likely to encounter, why they matter to real store outcomes, and how teams typically handle and customize migrated data to match different business requirements.
 
-#### Products and variations live in WordPress post structures
+#### How WooCommerce stores data
 
-WooCommerce products and variations are stored using WordPress structures:
+WooCommerce uses WordPress building blocks to represent commerce:
 
-* Products and variations are stored in `wp_posts` and `wp_postmeta`, and variations are stored as separate entries.
-* WooCommerce registers product-related post types like `product` and `product_variation`.
+* Products and variations are represented through WordPress content structures plus WooCommerce-specific fields.
+* Categories, tags, and many attribute structures use WordPress taxonomies and relationships.
+* “Meaning” often lives in metadata and plugin-added fields.
+* Frontend behavior is frequently shaped by theme templates and plugins, not only by the stored values.
 
-**Why it matters in a migration**
+**Practical implication**: a migration can successfully move the records, while the store still behaves differently if the destination theme, plugin stack, or field expectations are not aligned.
 
-* If your source platform treats variants, options, and attributes differently, mapping must preserve how customers select and purchase.
-* Variation-heavy catalogs are not just a “data size” issue. They are a “behavior integrity” issue.
+#### Product and variation structure: records versus buying behavior
 
-**Practical interpretation for decision-makers**
+WooCommerce can store complex products, but the customer experience depends on how variations and attributes are represented and rendered.
 
-If your catalog relies on complex variant selection (size-color bundles, dependent options, price-changing attributes, per-variation images or inventory), plan to validate the storefront behavior, not only the existence of variation records. In WooCommerce, the “correctness” customers feel is often created by the theme’s templates plus plugin logic, which can behave differently even when the underlying records look complete.
+Common differences you will see after migrating to WooCommerce include:
 
-#### Catalog organization uses WordPress taxonomies and relationships
+* Variation selection works differently even when variations exist (especially when the prior platform used dependent options, custom option rules, or bundled selection logic).
+* Attributes can appear correctly in admin, but behave differently in filtering, search, and navigation depending on theme and plugin usage.
+* Pricing and inventory can be correct at the record level, while purchase behavior differs due to rules previously enforced by platform logic or extensions.
 
-WooCommerce uses WordPress taxonomies and relationships, including:
+**What this means for planning:**
 
-* Product categories (`product_cat`) and product tags (`product_tag`)
-* Taxonomy tables (`wp_terms`, `wp_term_taxonomy`, `wp_term_relationships`) support category and attribute structure
+* Treat variation-heavy products as first-class validation targets.
+* Define acceptance criteria based on outcomes: selection flow, price changes, stock behavior, and what appears on the product page and in checkout.
 
-**Why it matters in a migration**
+#### Taxonomies and merchandising: categories, tags, and attributes
 
-* Category structure and product assignment can migrate, but navigation depends on how your theme and menus present it.
-* Category naming and hierarchy decisions become storefront UX decisions during migration.
+WooCommerce commonly uses taxonomies for categories and tags, and it can also use taxonomy-like structures for attributes. This creates two important migration realities:
 
-**Practical interpretation for decision-makers**
+1. **Structure can migrate, but browsing depends on implementation**\
+   A clean category tree is not the same thing as a functional navigation system. Themes and filtering plugins can change how categories and attributes are surfaced and combined.
+2. **Attribute strategy affects discoverability**\
+   Attributes that are purely informational behave differently than attributes that power filtering and variation selection. Migrating values is only part of the goal. The planning goal is ensuring attributes still support the discovery and selection behavior your customers rely on.
 
-In WooCommerce, “category accuracy” is more than having the right tree structure. It is also about whether customers can find products the same way they used to (menus, filters, landing pages, internal search behavior). That means taxonomy mapping decisions should be tied to browsing expectations, not only to database structure.
+#### Orders and statuses: where “status” meaning can diverge
 
-#### Custom fields and plugin-driven data can be easy to store, hard to preserve
+Order history is rarely just a list of records. In WooCommerce, order behavior and administrative usability can change when:
 
-WooCommerce stores many details in `wp_postmeta` (including prices, SKU, and attributes), and plugins can add their own data structures.
+* Your source platform’s order status taxonomy does not map cleanly to WooCommerce conventions.
+* Payment and fulfillment workflows were previously implemented by apps or platform-native flows that do not exist the same way in WooCommerce.
+* Extensions expect order metadata in specific formats to support invoices, shipping labels, subscriptions, or reporting.
 
-**Why it matters in a migration**
+**Planning guidance:**
 
-* “Custom fields” can be easy to store but hard to use consistently across themes, filters, feeds, and search.
-* Plugin-driven fields may not map cleanly unless you define what must remain true after migration.
+* Define what order history must support after launch (refund logic, fulfillment visibility, support workflows, returns, invoices).
+* Validate a small set of real orders that represent your operational complexity, not only totals.
 
-**What “must remain true” looks like (examples you can reuse for scoping)**
+#### Customer profiles and metadata: user fields versus business meaning
 
-* A field is only “meaningful” if it still drives the same customer decision or operational workflow after migration.
-* If a plugin uses custom fields to power filtering, pricing rules, subscriptions, or product bundles, you may need explicit transformation rules or Custom Jobs to preserve the intended behavior.
-* If the data is informational only (for internal reference), it may be acceptable for it to migrate as a stored value even if it does not automatically drive storefront logic.
+WooCommerce can store customer data, but the meaning of “customer metadata” varies widely across stores. Common examples include:
 
-This is where WooCommerce differs from more standardized hosted platforms: stores can look simple on the surface while being complex underneath because extensions may add extra custom post types or custom tables.
+* Customer groups, tiers, wholesale roles, VAT fields, or B2B requirements.
+* Loyalty identifiers, sales-rep ownership, or custom account fields.
+* Marketing consent flags and profile preferences.
 
-#### Orders and order history storage can differ depending on HPOS
+The key decision-stage question is not “Can we store it?” It is “What must this data continue to do?”
 
-Historically, WooCommerce stored orders using WordPress posts and postmeta. WooCommerce introduced High-Performance Order Storage (HPOS), which uses dedicated order tables, and it is enabled by default for new installations from WooCommerce 8.2 onward.
+A useful way to scope customer metadata is to classify it into two types:
 
-**Why it matters in a migration**
+* **Informational metadata**: values you want preserved for reference.
+* **Behavior-driving metadata**: values that must continue to control pricing, visibility, checkout rules, tax logic, or role-based experiences.
 
-* Order history can be stored differently depending on whether HPOS is used.
-* Extension compatibility can affect how orders and related records behave when HPOS is enabled.
+Behavior-driving metadata often requires explicit mapping rules and may require custom handling when the destination store uses a different role system or plugin-defined structures.
 
-**Practical interpretation for decision-makers**
+#### Media, rich content, and attachments: data can move but presentation can change
 
-If order history and customer support workflows are business-critical, your migration plan should treat “orders” as a behavior-and-compatibility domain, not only a record set. The same dataset can present differently in admin views and extensions depending on storage mode and plugin expectations.
+WooCommerce stores product imagery and rich content in ways that are closely tied to WordPress media handling, theme layouts, and plugin behavior. This can affect:
 
-#### SEO inputs are tied to WordPress permalinks and URL structure
+* Images inside product descriptions.
+* Product attachments and downloadable assets.
+* How galleries, variation images, and rich content blocks appear on the product page.
 
-WooCommerce URL structure is controlled through WordPress permalinks, with specific bases for product categories, tags, and products.
+**Planning guidance:**
 
-**Why it matters in a migration**
+* Treat media as a customer experience requirement.
+* Validate a representative sample of high-traffic products with the same content patterns you use across the catalog.
 
-* URL patterns can differ widely between stores.
-* URL continuity planning becomes important when you change permalink structures during a migration.
+#### URL structure and permalink behavior: a structural choice, not just a data choice
 
-**Practical interpretation for decision-makers**
+WooCommerce URL structure depends on WordPress permalink decisions and how product, category, and tag bases are defined. Even if products migrate perfectly, URLs can change because the destination structure differs.
 
-In WooCommerce, SEO continuity is often a “structure decision,” not just a data decision. Outcomes depend on URL decisions and how redirects are managed. If your current platform uses a different URL pattern, plan for how customers and search engines will find your high-value pages after the move.
+Where this becomes critical:
 
-#### The core migration takeaway: separate “data existence” from “behavior truth”
+* SEO continuity depends on path-to-path decisions.
+* Category and product URL patterns can differ widely from one store to another.
 
-WooCommerce data is highly flexible because it inherits WordPress structures and plugin extensibility. That same flexibility is why mapping and validation matter. The biggest planning mistake is assuming that plugin-owned behaviors will automatically carry over just because the underlying records migrated.
+Redirect framing for decision-makers:
 
-A more reliable way to plan is to define acceptance criteria in terms of workflows, not only totals:
+* Redirects occur on the new website and redirect URL paths, not the domain itself.
+* A URL is domain plus URL path, so continuity planning should be path-to-path.
+* When testing on a temporary domain or subdomain, validate path behavior on the new site.
+* After domain cutover, old live URLs resolve to new destinations using the same path mapping, and search engines gradually replace old indexed URLs with new ones.
+* If the target platform supports 301 redirects natively, a plugin or module may not be needed. If it does not, Next-Cart provides an SEO URL Redirects plugin or module post-purchase.
 
-* Can customers select variations the same way and reach the same end state?
-* Do category browsing and navigation match the customer mental model?
-* Do orders support the customer support workflows your team relies on?
-* Are SEO-critical URLs still reachable under your chosen permalink structure?
+#### Practical ways teams handle and customize migrated data
 
-#### Conclusion
+Different businesses need different outcomes. These are common approaches used to tailor WooCommerce post-migration behavior.
 
-WooCommerce migrations succeed when mapping decisions preserve meaning, not only structure. Because WooCommerce data and behavior can be distributed across WordPress tables, postmeta, taxonomies, themes, and plugins, the safest planning mindset is to validate the workflows that matter most, especially for variable products, plugin-driven catalog logic, and order history behavior.
+#### 1) Standardize the destination model before migrating
 
-If your store has important custom fields or plugin-managed product logic, you can validate direction by running a Demo Migration using a sample that includes your most complex products and representative orders, then reviewing the results to confirm what migrates cleanly versus what needs Custom Jobs.
+Best for: stores that want predictable behavior and cleaner long-term maintenance.
 
-If you prefer, you can ask Next-Cart to run the Demo Migration using your sample data and share findings with you, then use Live Chat to scope what must be preserved and align on the right approach (Standard Migration, Managed Migration, or Custom Migration).
+**Planning approach:**
+
+* Decide the intended WooCommerce product patterns (simple vs variable, attribute strategy, variation strategy).
+* Decide what customer and order data must drive behavior versus what is only informational.
+* Align expectations for URLs and navigation structure.
+
+**Outcome**: the migrated data lands into a clearer structure, reducing the risk of “records exist but do not behave.”
+
+#### 2) Preserve business logic through intentional plugin alignment
+
+Best for: plugin-dependent stores where behavior continuity matters more than minimizing extensions.
+
+**Planning approach:**
+
+* Inventory which plugins define revenue-critical behavior (wholesale pricing, subscriptions, booking, bundles, advanced shipping/tax).
+* Define outcome-based acceptance criteria for each critical behavior.
+* Validate those behaviors in a Demo Migration sample.
+
+**Outcome**: the data and the behavior converge, not only the stored values.
+
+#### 3) Use custom handling when meaning must be preserved precisely
+
+Best for: stores with custom options, special metadata, non-standard product logic, or operational constraints like order number continuity.
+
+**Planning approach:**
+
+* Identify “meaning-critical” fields and workflows.
+* Define transformation rules in plain language: what the destination must display or do.
+* Treat these as scoped requirements so the correct service model can be chosen.
+
+**Outcome**: higher confidence for complex stores that cannot accept partial behavior drift.
+
+### Conclusion
+
+WooCommerce migrations succeed when you plan for how WooCommerce represents meaning, not only how it stores records. Products, variations, attributes, orders, and customer metadata often exist across WordPress structures, taxonomies, and metadata, with store behavior shaped by themes and plugins. That means the safest planning approach is outcome-first: define what must remain true after launch, then validate behavior using a representative sample that includes complex products, real order patterns, and the metadata that drives your business rules.
+
+You can reduce uncertainty early by running a Demo Migration that includes your most behavior-sensitive products and a small set of operationally important orders and customers. If you prefer, you can provide sample data and ask Next-Cart to run the Demo Migration and share the results, then use Live Chat to align scope, confirm what must be customized, and choose the safest service model for your WooCommerce target.
 
 #### FAQs
 
@@ -119,19 +166,15 @@ Because store behavior is often defined by plugins and custom fields. The data c
 
 <summary><strong>Do you support migrating WooCommerce Subscriptions?</strong></summary>
 
-Yes. Subscription continuity is usually extension-driven, so it is commonly handled through Custom Jobs when the subscription model must be preserved precisely.
-
-WooCommerce Subscriptions is a dedicated extension for recurring payments, which is why planning should focus on outcomes, not only on records.
+Yes. Subscription behavior is often extension-driven. For planning, treat subscriptions as a scoped requirement defined by outcomes, such as what should happen to subscription customers, recurring order history, and account visibility after launch. When subscription continuity must be preserved precisely, custom handling may be required via Custom Job.
 
 </details>
 
 <details>
 
-<summary><strong>Do you support migrating wholesale price to WooCommerce?</strong></summary>
+<summary><strong>Do you support migrating wholesale pricing into WooCommerce?</strong></summary>
 
-Yes, but wholesale pricing is typically managed by a wholesale pricing extension that defines roles and price visibility rules.
-
-The migration goal should be “wholesale customers see the correct pricing behavior”, not only “a price value exists”.
+Often yes, but wholesale pricing is typically controlled by roles and wholesale extensions in WooCommerce. The migration goal should be behavior-based, such as which customers see which prices and under what conditions, not only whether a price value exists. Define the expected outcomes and validate them early.
 
 </details>
 
@@ -139,8 +182,22 @@ The migration goal should be “wholesale customers see the correct pricing beha
 
 <summary><strong>Does your migration tool support transferring product relationships to WooCommerce?</strong></summary>
 
-Yes. The most important part is validating that relationships appear where they matter (product pages and buying paths).
+Often yes. The most important validation is whether relationships appear where they matter, such as on product pages and key buying paths, and whether they still support your merchandising goals after migration.
 
-WooCommerce supports up-sells and cross-sells, and those relationships can be validated on representative high-traffic products.
+</details>
+
+<details>
+
+<summary><strong>How are custom options handled when migrating into WooCommerce?</strong></summary>
+
+WooCommerce can represent many option patterns, but different platforms store options differently, and WooCommerce behavior is often plugin-dependent. Define what customers must be able to select and how price and inventory should respond. If your option logic includes dependent rules or complex pricing behavior, Custom Job may be required to preserve intended outcomes.
+
+</details>
+
+<details>
+
+<summary><strong>Do images inside product descriptions migrate to WooCommerce?</strong></summary>
+
+Often yes, depending on how images are stored or referenced in the source platform. The key validation is not only whether the image files exist, but whether they render correctly in the destination product pages and preserve the same content experience.
 
 </details>
