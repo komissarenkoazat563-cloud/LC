@@ -24,162 +24,87 @@ If you cannot answer these yet, that is normal. The purpose of this checklist is
 
 #### WooCommerce Preparation Checklist
 
-**1) Build a “high-signal” migration sample list**
+**1) Build a representative demo sample**
 
-A migration sample is the fastest way to validate feasibility. It should be representative of the store’s risk, not a random handful of easy items.
+Prepare a small set that represents real risk, not easy records:
 
-**Prepare:**
+* Best sellers and highest-margin products
+* Most complex variable products (multi-attribute, variation-level price/stock)
+* Products affected by plugins (subscriptions, bundles, add-ons, wholesale)
+* A few representative customer profiles (guest, regular, wholesale/B2B, tax-exempt if relevant)
+* A small set of operational order scenarios (refunds, multi-item orders, discount-heavy orders if common)
+* Priority URLs (top organic landing pages, top revenue products, key categories)
 
-* Best sellers (the products you cannot afford to disrupt)
-* Most complex variable products (attribute-heavy, many variations, special pricing)
-* Products affected by plugins (subscriptions, bundles, add-ons, custom pricing)
-* A few edge-case products (the ones that historically generate support tickets)
+**2) Inventory plugins and identify what they control**
 
-**Why this matters:**
+Create a simple list and classify each plugin:
 
-* WooCommerce variability is most visible in edge cases and plugin-driven behavior.
-* A representative sample reveals mapping issues early and reduces late-stage rework.
+* Revenue-critical (must preserve outcomes)
+* Operations-critical (must preserve workflows)
+* Optional (nice-to-have)
 
-**Output:**
+For each revenue/ops-critical plugin, document:
 
-* A short list of products and scenarios that stakeholders agree must behave correctly after launch.
+* Which entity it affects (Product, Customer, Order, SEO)
+* What outcome it must preserve (plain-language “must remain true” statements)
 
-**2) Inventory plugins and classify what they control**
+**3) Prepare source product data for predictable mapping**
 
-Plugins often define essential WooCommerce behavior and may store data in custom post types or custom tables.
+Even before any migration execution, reduce ambiguity in your source catalog:
+
+* Normalize attributes and option names (consistent naming across products)
+* Identify products with inconsistent variant structures (same attribute but different value formats)
+* Identify pricing edge cases (sale pricing patterns, bundled price behavior, tier pricing rules)
+* Identify media patterns (gallery behavior, variation images, rich descriptions with embedded images)
+
+**Goal**: minimize “same concept represented five different ways” in source data.
+
+**4) Prepare source customer data for account rules continuity**
+
+Define what customer data must remain usable and what must continue to drive behavior:
+
+* Customer groups/tiers/roles (if used)
+* Pricing eligibility rules (wholesale/B2B access, tax-exempt status)
+* Meaning-critical customer metadata (fields used for operations or segmentation)
+
+**Goal**: confirm which customer attributes are informational vs behavior-driving.
+
+**5) Prepare source order data expectations (if orders are in scope)**
+
+Clarify what “order success” means operationally:
+
+* Which order statuses must remain meaningful
+* Which fields support support/fulfillment workflows
+* Which refund/return scenarios must remain usable
+
+**Goal**: validate usability, not only the presence of order records.
+
+**6) Decide your URL continuity rules early (SEO planning)**
 
 **Prepare**:
 
-* A full plugin list, including:
-  * revenue-critical plugins (subscriptions, booking, bundles, product add-ons)
-  * operations-critical plugins (shipping, fulfillment, ERP/accounting connectors)
-  * marketing and SEO plugins (feeds, tracking, SEO tools)
-* For each plugin, document:
-  * what customer-facing behavior it affects
-  * what data it stores that you cannot lose
-  * whether equivalent behavior is required after migration
+* A prioritized list of critical URLs (products, categories, content pages)
+* Your intended destination URL pattern assumptions (what should stay the same vs what can change)
 
-**Why this matters:**
+**Goal**: plan SEO continuity as path-to-path behavior and validate it early.
 
-* Plugin-defined data is a primary WooCommerce migration risk area.
-* You can migrate “standard entities” perfectly and still break conversion if plugin-owned meaning is missing.
+**7) Define acceptance criteria for validation (your “pass conditions”)**
 
-**Output:**
+Write a short set of pass conditions that stakeholders agree on:
 
-* A plugin dependency map that identifies which plugins must be planned into scope and validation.
+* Product pass conditions (variation selection, price behavior, add-to-cart, checkout outcomes)
+* Customer pass conditions (role-based visibility/pricing behavior if relevant)
+* Order pass conditions (support and fulfillment usability for representative scenarios)
+* SEO pass conditions (priority paths resolve to correct destinations)
 
-**3) Identify meaning-critical custom fields and where they must be usable**
+**8) Confirm ownership and sign-off roles**
 
-WooCommerce relies heavily on metadata, and plugins often add even more. Custom fields can affect discoverability, pricing logic, and operational workflows.
+Before the project accelerates, define:
 
-**Prepare:**
-
-* A list of custom fields that affect:
-  * product filtering and browsing
-  * feeds and marketing channels
-  * pricing and promotion logic
-  * fulfillment and support workflows
-* Separate fields into:
-  * customer-facing (specs, compatibility, decision-driving data)
-  * operational (internal flags, supplier codes, warehouse handling)
-
-**Why this matters:**
-
-* Custom fields are easy to store but hard to standardize across theme and plugin contexts.
-* A field is only “preserved” if it still influences the same behavior after migration.
-
-**Output:**
-
-* A shortlist of must-preserve fields with clear “where it must show up” requirements.
-
-**4) Confirm variation and attribute strategy expectations**
-
-WooCommerce variable products can look “complete” while purchase behavior changes.
-
-**Prepare:**
-
-* Identify attribute sets used for variations and confirm consistency:
-  * naming patterns
-  * attribute value standardization
-  * price and stock differences per variation
-* Identify products where variation selection is conversion-critical.
-
-**Why this matters:**
-
-* WooCommerce variations often rely on theme templates and extensions to create the selection experience.
-* Migration success should be measured by buying outcomes, not by whether variations exist as records.
-
-**Output:**
-
-* A short “variation truth” checklist describing what must remain true on the product page and in checkout.
-
-**5) Decide early whether order history behavior matters to your operations**
-
-Order history can be in scope and still fail operationally if workflows or reporting expectations diverge in the target environment.
-
-**Prepare:**
-
-* Decide what order history must support after go-live:
-  * support workflows (lookup speed, visibility of notes, customer context)
-  * fulfillment workflows (status meaning, operational flags)
-  * refund and return expectations
-* Identify a small set of representative orders to validate:
-  * typical orders
-  * edge-case orders (partial refunds, complex shipping, multiple items, discount-heavy)
-
-**Why this matters:**
-
-* The same orders can behave differently depending on how the WooCommerce environment stores and uses order data and how extensions interpret it.
-
-**Output:**
-
-* A small “order usability” validation set aligned to real support and fulfillment workflows.
-
-**6) Establish permalink and URL continuity expectations before you migrate**
-
-WooCommerce URL structure is a configuration decision. If your current platform uses a different URL pattern, assume URL continuity planning will matter.
-
-Prepare:
-
-* Identify priority URLs:
-  * top revenue products
-  * top organic landing pages
-  * key categories/collections
-  * high-intent blog-to-product pathways
-* Define what “good” looks like:
-  * shoppers can find key pages on day one
-  * old paths resolve to correct new destinations
-
-Why this matters:
-
-* SEO continuity is often a structure decision, not just a data decision.
-
-Output:
-
-* A prioritized URL mapping plan that can be validated before go-live.
-
-**7) Confirm the target environment is ready for realistic validation**
-
-A WooCommerce store’s behavior is influenced by hosting, theme decisions, and plugin compatibility. Validation is only meaningful when the environment reflects the intended reality.
-
-**Prepare:**
-
-* Confirm who owns:
-  * theme decisions that affect navigation and product display
-  * plugin stack decisions that affect behavior
-  * hosting quality expectations for performance and stability
-* Define what counts as sign-off:
-  * which stakeholders approve customer-facing outcomes
-  * which stakeholders approve operational workflows
-  * which URLs must be verified as “findable”
-
-**Why this matters:**
-
-* Many late surprises are not data problems. They are environment alignment problems.
-
-**Output:**
-
-* A simple ownership and sign-off plan so validation is faster and decisions do not stall.
+* Who owns plugin stack decisions
+* Who owns URL mapping decisions
+* Who signs off on customer-facing behavior (merchandising, checkout)
+* Who signs off on operational usability (support, fulfillment)
 
 #### Conclusion
 
@@ -232,5 +157,13 @@ WooCommerce has extensions specifically for product attachments and uploads, whi
 <summary><strong>What is the most common preparation mistake for WooCommerce migrations?</strong></summary>
 
 Treating the project like a simple data copy and delaying plugin, custom field, and URL decisions. WooCommerce migrations are safest when variability is identified early and validated using a representative sample.
+
+</details>
+
+<details>
+
+<summary><strong>Should I prioritize cleaning product data or validating first?</strong></summary>
+
+Do both in a lightweight way: normalize the biggest inconsistencies first, then validate using representative products that reveal behavior mismatches early.
 
 </details>
