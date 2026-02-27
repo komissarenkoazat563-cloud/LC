@@ -1,16 +1,16 @@
 # Pre-migration Preparation Checklist for BigCommerce
 
-BigCommerce migrations go more smoothly when you treat preparation as a short planning project: clarify what must stay true for shoppers, decide how product options should behave, and validate the riskiest parts of your catalog early using a representative sample. This checklist is designed to help you prevent late surprises without drifting into technical setup steps.
+BigCommerce migrations go more smoothly when you treat preparation as a short planning project, not a last-minute setup phase. The goal is to remove ambiguity before a full run: decide how product choices should behave, confirm how shoppers will browse and filter, and verify which pieces of “store meaning” live in apps or custom fields rather than standard product records.
 
 #### What this checklist helps you avoid
 
-Before the checklist, it helps to name the most common “avoidable problems”:
+Before you start, it helps to name the most common avoidable problems:
 
 * A catalog that technically migrates, but product option behavior changes in ways that break buying flows.
 * Variant SKU explosion caused by modeling personalization as inventory variants.
 * Categories that transfer, but browsing no longer matches how customers shop.
 * Custom fields that exist, but no longer drive filtering, merchandising, or storefront display.
-* SEO continuity left until the end, resulting in missing redirects for high-value pages.
+* SEO continuity treated as a final step, resulting in missing redirects for high-value pages.
 
 Use the checklist below to surface these risks early, while decisions are still easy to adjust.
 
@@ -18,149 +18,128 @@ Use the checklist below to surface these risks early, while decisions are still 
 
 Write down the outcomes that must remain true after migration. Keep them concrete and customer-facing.
 
-Examples (planning-only):
+**Examples:**
 
 * “Customers can find products through the same top categories and filters.”
 * “Variant selection behaves predictably for our most configurable SKUs.”
 * “Price changes show up correctly when options are selected.”
+* “Add-ons and personalization choices remain clearly represented in cart and checkout.”
 * “Top SEO landing pages still resolve correctly after launch.”
 
-This becomes your validation standard later. If a migrated store “looks right” but fails one of these outcomes, it is not ready.
+This becomes your validation standard later. If a migrated store looks right but fails these outcomes, it is not ready.
 
-#### 2) Inventory your highest-risk products and option behavior
+#### 2) Decide how product choices should behave: variants versus modifiers
 
-BigCommerce planning often hinges on one decision: which choices should become inventory variants vs non-inventory modifiers.
+BigCommerce planning often hinges on one decision: which choices should become inventory variants versus non-inventory modifiers.
 
-Create a short “risk list” of products that are most likely to break if option behavior changes:
+Create a short risk list of products that are most likely to break if option behavior changes:
 
-* Highly configurable products (multiple option dimensions).
+* Highly configurable products with multiple option dimensions.
 * Products where inventory must be tracked at the selection level.
-* Products with personalization, add-ons, or conditional pricing.
+* Products where option choices affect price in a specific way.
+* Products with personalization, engraving, or add-ons mixed into the same listing.
 
-For each product, write option behavior in plain language:
+For each risk product, describe option intent in plain language:
 
 * “This choice must change the SKU.”
-* “This choice must affect inventory.”
-* “This choice must add a fixed price.”
-* “This choice must capture text input.”
-* “This choice must restrict availability.”
+* “This choice must change inventory availability.”
+* “This choice must add a specific price adjustment.”
+* “This choice collects text input and must appear in the order.”
+* “This choice is a shopper preference but does not create a new inventory-tracked item.”
 
-If you can’t describe the behavior clearly, treat it as a risk item and validate it early.
+This step prevents the most common failure mode: all options migrate, but the buying experience becomes commercially wrong.
 
-#### 3) Check for variant combination explosion risk
+#### 3) Build a representative Demo Migration sample on purpose
 
-Variant growth is multiplicative. A product can cross practical variant ceilings quickly if too many options are treated as inventory variants.
+A random demo sample can create false confidence. A strong sample intentionally includes complexity because complexity is where risk shows up first.
 
-Planning checks:
+A high-signal BigCommerce demo sample typically includes:
 
-* Identify products with multiple option dimensions (for example: size × color × material).
-* Flag any product where personalization was historically modeled as a variant.
-* Decide whether any options should be reclassified as modifiers to prevent SKU explosion.
+* Best sellers with complex variants or option rules.
+* Your most configurable products (the ones most likely to exceed practical variant scale).
+* A few top categories that shape your primary browse paths.
+* Products with important attributes or custom fields used for filtering or display.
+* A short list of priority URLs (top organic landing pages, highest-value products, and key categories).
 
-If you have “configurator-style” products, treat them as the first items to validate in a Demo Migration sample.
+If order history is in scope for your project, include a few support-relevant order scenarios as part of your validation plan.
 
-#### 4) Audit long option lists and “choose from hundreds” patterns
+#### 4) Inventory apps and custom logic that define store behavior
 
-Long pick lists often represent compatibility or classification rather than true SKU variation.
+Many stores rely on apps or platform-specific logic for outcomes that shoppers and staff experience as “how the store works.” If that behavior is not accounted for early, the migrated store can look correct while being non-functional in critical workflows.
 
-Planning checks:
+Create a simple list of apps and custom logic and classify them by impact:
 
-* Identify any option list that is unusually long (dozens or hundreds of values).
-* Decide whether the list is a buying decision, a compatibility selector, or a filtering aid.
-* Determine whether the list must create inventory variants or can be modeled as a non-inventory selection or structured attribute.
+* Revenue-critical: affects pricing visibility, purchasing flow, product configuration, subscriptions, bundles, or checkout.
+* Operations-critical: affects fulfillment, taxes, shipping rules, customer groups, returns, or reporting.
+* Optional: improves marketing or presentation but does not define core business behavior.
 
-The goal is to preserve shopper clarity without creating an unmanageable variant structure.
+For each revenue-critical or operations-critical item, write:
 
-#### 5) Plan category structure as navigation, not tagging
+* What outcome it must preserve.
+* Which products or customer types it affects.
+* How you will validate it (one or two representative scenarios).
 
-BigCommerce categories work best when they represent a deliberate browsing structure.
+If an outcome is not available by default, it is usually a signal to scope Custom Jobs or consider Custom Migration so the result is engineered, not improvised late.
 
-Planning checks:
+#### 5) Clean and normalize option data before you judge results
 
-* Identify your top browse paths (the categories that drive the most traffic and conversions).
-* Decide which categories are true navigation nodes vs “tag-like” groupings.
-* Identify categories that exist mainly for SEO landing purposes and confirm how they should behave post-migration.
+BigCommerce migrations become harder when option values are messy. Inconsistent option naming, duplicated values, and mismatched formats can create avoidable variant complexity and confusing storefront selection behavior.
 
-If your current store uses categories like tags (heavy multi-assignment), call that out early so you can decide what should move into attributes or filtering instead of category sprawl.
+Planning-level clean-up tasks:
 
-#### 6) Identify the attributes and custom fields that matter
+* Standardize option names and value formats (Size: “M” vs “Medium”).
+* Remove unused or duplicate option values.
+* Separate “true buying choices” from descriptive attributes when possible.
+* Identify products where the same concept is represented differently across listings.
 
-Many stores hide business-critical meaning in custom data.
+This reduces the chance that the migration produces correct records with confusing behavior.
 
-Classify your custom data into three levels:
+#### 6) Confirm category intent and browsing structure
 
-* Must preserve: required for buying decisions, compliance, fulfillment, or critical discovery.
-* Should preserve: important for merchandising, feeds, or internal workflow, but has alternatives.
-* Nice to have: legacy, duplicated, or low impact.
+Category transfers are not only about mapping. They are about preserving discoverability and merchandising intent.
 
-Also note where the meaning must live:
+Preparation steps:
 
-* Product-level meaning (specs, merchandising attributes)
-* Variant-level meaning (SKU-level details)
-* Category-level meaning (navigation context, SEO landing intent)
+* List your top browse paths and the categories that drive them.
+* Identify categories that act like SEO landing pages or curated collections.
+* Identify cases where categories are being used like tags (over-assignment), which can dilute navigation clarity.
 
-This classification prevents scope drift and makes Demo Migration review more objective.
+Your goal is to preserve how customers find products, not only to replicate a legacy structure that no longer serves discovery.
 
-#### 7) Plan content and SEO continuity early (especially redirects)
+#### 7) Identify meaning-critical fields and where they must remain usable
 
-If SEO matters, redirect planning is not a launch-week task.
+Some fields matter because they drive behavior. Others matter because they build customer confidence.
 
-Planning checks:
+Make a short list of “meaning-critical” data that must remain usable after migration:
 
-* List your highest-value URLs (top categories, top products, top organic landing pages).
-* Decide what “acceptable change” looks like:
-  * preserve URLs where possible, or
-  * allow change but require clean redirects
-* Confirm that category and product pages that act as landing pages still exist as meaningful destinations post-migration.
+* Attributes used for filtering or structured discovery.
+* Specs and details needed for purchase confidence.
+* Data that drives badges, labels, eligibility, or storefront display rules.
+* Any internal fields your team relies on for merchandising or operations.
 
-The best prevention pattern is “top URLs first”: validate the highest-value URL set early, then expand.
+For each field, define:
 
-#### 8) Define your Demo Migration sample (risk-based, not random)
+* Where it must appear (product page, category list, filters, admin visibility).
+* What it must do (display only, filter, restrict, change pricing, or change availability).
 
-A Demo Migration sample is most useful when it reproduces your real complexity.
+This prevents scope drift and ensures validation is tied to observable outcomes.
 
-Include:
+#### 8) Set validation ownership and approval gates before the full run
 
-* Your most configurable products (the ones most likely to stress option behavior).
-* Products where option selection affects price and inventory expectations.
-* A few products that rely on custom fields for storefront display or filtering.
-* The categories that represent your most important browse paths.
+Validation is easiest when it is owned. Before a full migration, define:
 
-Success is not “it imported.” Success is “it behaves the way shoppers and the business expect.”
+* Who approves product purchase behavior (selection, pricing, availability, cart and checkout).
+* Who approves navigation outcomes (category structure and key browse paths).
+* Who approves operational usability (customer accounts and order workflows if applicable).
+* Who approves SEO-critical page behavior (priority URL outcomes).
 
-#### 9) Decide what you will validate first (and who owns sign-off)
-
-Validation becomes faster when you define ownership and priorities early.
-
-Define:
-
-* Who signs off on catalog correctness (products, variants, options, pricing presentation).
-* Who signs off on navigation and discovery (categories, filtering expectations).
-* Who signs off on SEO continuity (priority URLs and redirects).
-
-Then define the first-pass validation list:
-
-* 10–30 representative products
-* 3–5 critical categories and their top filters
-* Priority URL set that must remain reachable
-
-#### 10) Size your migration plan realistically (scope and review windows)
-
-Even when the store is “ready,” teams underestimate review effort.
-
-Planning checks:
-
-* Make sure you have enough time to review Demo Migration results thoughtfully.
-* Plan review time for the most complex products first.
-* Avoid compressing all validation into the final week before launch.
-
-If your store is large or complex, build extra time into the plan for structured validation rather than relying on last-minute spot checks.
+Also decide what counts as a pass for the demo review. A demo is a direction test, not a full completeness proof. Judge outcomes, not totals.
 
 #### Conclusion
 
-BigCommerce migration preparation is mostly about turning hidden complexity into explicit decisions: option behavior (variants vs modifiers), navigation intent, custom data meaning, and SEO continuity. When those decisions are made early and validated with a representative sample, the migration becomes predictable instead of reactive.
+BigCommerce preparation is mostly about clarity. Decide what becomes a variant, what becomes a modifier, how browsing should work, and which app-driven outcomes must remain true. If you define success in shopper terms, build a representative Demo Migration sample on purpose, and assign clear validation ownership, you can avoid the most common BigCommerce migration surprise: data that moved correctly but behaves incorrectly in real buying workflows.
 
-Run a Demo Migration using your highest-risk products and most important category paths, then review results against the shopper outcomes you defined. If you prefer, you can share sample data and ask Next-Cart to run the Demo Migration and summarize what looks clean versus what needs special handling. For fast scoping and expectation alignment, Live Chat is the quickest way to confirm whether Standard Migration, Managed Migration, or Custom Migration is the safest approach.
+Run a Demo Migration using your highest-risk products and most important category paths, then review results against the outcomes you defined. If you prefer, you can share sample data and ask Next-Cart to run the Demo Migration and summarize what looks clean versus what needs special handling. For fast scoping and expectation alignment, Live Chat is the quickest way to confirm whether Standard Migration, Managed Migration, or Custom Migration is the safest approach.
 
 #### FAQs
 
