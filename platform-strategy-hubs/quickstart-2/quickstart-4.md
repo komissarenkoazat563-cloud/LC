@@ -76,7 +76,7 @@ Use the following as a decision lens. You do not need to match every bullet. The
 
 **Typical “Standard-safe” WooCommerce example:**
 
-**g**A stable product catalog, predictable variable products, and limited extension reliance where the storefront behavior is mostly determined by theme configuration rather than complex plugin logic.
+A stable product catalog, predictable variable products, and limited extension reliance where the storefront behavior is mostly determined by theme configuration rather than complex plugin logic.
 
 **Choose Managed Migration when**
 
