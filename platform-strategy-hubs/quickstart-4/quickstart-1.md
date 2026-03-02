@@ -4,9 +4,9 @@ metaLinks:
     - https://app.gitbook.com/s/EwOn3si2UOVRL65zVOMg/troubleshoot/quickstart-1
 ---
 
-# Magento Data Model Differences: What Changes and Why It Matters
+# Magento Data Model Differences
 
-Magento (Adobe Commerce) migrations succeed when you preserve **meaning**, not just records. In Magento, meaning is often defined by product type behavior, attributes and attribute sets, multi-store scope rules, and URL continuity decisions.
+Magento (Adobe Commerce) migrations succeed when you preserve meaning, not just records. In Magento, meaning is often defined by **product type behavior**, **attributes and attribute sets**, **multi-store scope rules**, and **how discovery and SEO are shaped by those structures**.
 
 This page explains the Magento-specific data model elements that most often change during a shopping cart migration and why those changes influence catalog behavior, discoverability, and launch readiness.
 
@@ -22,11 +22,21 @@ Key areas where “structure” matters more than people expect:
 * **URL rewrites and redirects** (how SEO continuity is preserved)
 * **Search and filtering dependencies** (discovery relies on attribute quality and configuration)
 
+#### Why Magento feels “different” after a migration
+
+Magento does not only store data. It uses data structures to drive what shoppers can do:
+
+* how they select options
+* which combinations are purchasable
+* how products are compared
+* how filtering behaves
+* how storefront differences appear across regions, languages, or brands
+
+A store can migrate successfully and still feel wrong if these structures were translated without a clear plan.
+
 #### 1) Product types and catalog behavior
 
 Magento supports multiple product types, including **simple, configurable, virtual, downloadable, bundle, and grouped**.
-
-**Why it matters in a migration**
 
 Product type is not just a label. It influences:
 
@@ -43,13 +53,9 @@ If your source platform models **kits, bundles, or variations** differently, the
 
 The migration goal is to preserve purchase behavior so products do not merely exist in the target store, but still “work” the way customers expect.
 
-#### 2) Attributes and attribute sets
+#### 2) Attributes and attribute sets: Magento’s catalog “shape”
 
 Magento relies heavily on **attributes**, organized into **attribute sets** that function like templates for product records.
-
-Magento’s EAV module exists to make entities configurable and extendable, which is part of why Magento can support rich, evolving catalogs.
-
-**Why it matters in a migration**
 
 In Magento, attributes are not just descriptions. They often drive:
 
@@ -61,22 +67,40 @@ A common Magento reality is **attribute sprawl**. Migration planning should deci
 
 **What “attribute sprawl” looks like**
 
-* Multiple attributes representing the same concept (for example, “Color,” “Colour,” “Primary Color”).
-* Attributes populated inconsistently across product lines, leading to empty filters, confusing facets, or poor category browsing experiences.
-* Attribute sets that evolved over time without a clear product-family strategy, causing two similar products to appear “structured” differently.
+* Multiple attributes representing the same concept (Color, Colour, Primary Color)
+* Values populated inconsistently across product lines, leading to empty filters or confusing facets
+* Attribute values that vary by formatting rather than meaning (XL vs Extra Large)
+
+**Why this changes migration outcomes**
+
+If attributes are inconsistent, everything downstream gets harder:
+
+* filtering becomes unreliable
+* browse pages feel incomplete
+* customers can’t narrow results meaningfully
+* teams struggle to compare products consistently
 
 **Planning mindset**
 
 Treat attributes and attribute sets as _storefront structure_, not mere data fields. If customers rely on filtering, browsing, and comparison, attribute quality becomes a core migration deliverable, not an afterthought.
 
-#### 3) Multi-store hierarchy: websites, stores, and store views
+#### 3) Multi-store scope mapping: websites, stores, and store views
 
-Magento installations have a hierarchy of **websites, stores, and store views** that controls scope.
+Magento installations have a hierarchy of websites, stores, and store views that controls scope. This is one of the most important structural differences for migration planning because the same catalog record can behave differently depending on storefront context.
 
 **Why it matters in a migration**
 
-* A single installation can serve **multiple storefronts** with different root categories and sometimes different base URLs.
-* Migration mapping must account for where catalog entities apply in that hierarchy (what differs by storefront vs what is shared).
+* A single installation can serve multiple storefronts with different root categories and different content requirements.
+* Migration mapping must account for where catalog entities apply in that hierarchy.
+* If scope is not mapped intentionally, you can end up with “correct data” in one storefront and confusing results in another.
+
+A planning-first way to handle scope is to define:
+
+* what is shared across all storefronts
+* what varies by region or language
+* what varies by brand or channel
+
+Then validate each storefront context separately, using the same acceptance criteria you would use at launch.
 
 **Planning examples**
 
@@ -85,14 +109,9 @@ Magento installations have a hierarchy of **websites, stores, and store views** 
 
 This is one reason Magento migrations often require more deliberate validation planning: the same product can behave differently depending on scope decisions.
 
-#### 4) SEO continuity through URL rewrites and redirects
+#### 4) URL structure, rewrites, and continuity in Magento
 
-Magento has a URL rewrites tool that can create permanent redirects (301) to preserve SEO value when URLs change.
-
-**Why it matters in a migration**
-
-* URL continuity is a **planning deliverable**, not a post-launch detail.
-* If your current store has deeply indexed URLs, redirect planning should start early so priority URLs can be validated before go-live.
+Magento can support URL rewrites and permanent redirects. In migration planning, the risk is not whether redirects are possible. The risk is discovering late that your most valuable URL paths changed in a way you did not anticipate.
 
 **Planning mindset**
 
@@ -103,30 +122,53 @@ Treat redirects like a “top journey protection list,” not a long spreadsheet
 * High-traffic content or landing pages
 * URLs tied to paid campaigns or external backlinks
 
-#### 5) Search requirements and implications
+If URL patterns are changing, the goal is to confirm that priority paths resolve intentionally before launch.
 
-Magento discovery is influenced by both attribute quality and how search is implemented/configure. Adobe Commerce 2.4 installations must be configured to use Elasticsearch or OpenSearch for catalog search. (Platform implementations can vary, so treat this as a dependency to confirm during planning.)
+#### Practical ways teams handle and customize migrated data for Magento
 
-**Why it matters in a migration**
+Different businesses need different outcomes. These are common approaches used to tailor Magento post-migration behavior without turning the project into late-stage rework.
 
-* Search and filtering outcomes depend on attribute quality and platform configuration, not only record counts.
-* Early validation should include filtering and search behavior, not just product pages, because discovery can “pass counts” but still fail in real browsing workflows.
+#### 1) Standardize the destination model before migrating
 
-**A common pitfall to avoid**
+**Best for:** stores that want predictable behavior and cleaner long-term maintenance.
 
-Teams validate that the right number of products, categories, and customers exist, but do not validate whether:
+**Planning approach:**
 
-* Key filters actually appear and work
-* Search returns expected products for high-intent queries
-* Category browsing feels consistent with how customers shop
+* Decide the intended Magento product patterns (simple vs configurable vs bundle vs grouped) for your key product families.
+* Define attribute governance: which attributes are essential, which drive filtering, and which are informational only.
+* Define scope strategy early (what is global vs storefront-specific).
 
-Magento can look correct in totals while discovery is degraded if attributes, attribute sets, and search expectations were not validated early.
+**Outcome:** the migrated data lands into a clearer structure, reducing the risk of “records exist but do not behave.”
+
+#### 2) Preserve business logic through intentional extension alignment
+
+**Best for:** stores where extension-driven behavior matters more than minimizing customization.
+
+**Planning approach:**
+
+* Inventory the extensions or modules that define conversion-critical behavior (B2B pricing, catalog rules, product configuration logic, checkout rules, SEO tooling).
+* Define outcome-based acceptance criteria for each critical behavior in plain language.
+* Validate those outcomes using a Demo Migration sample that includes the products and workflows those extensions affect.
+
+**Outcome:** the data and the behavior converge, not only the stored values.
+
+#### 3) Use custom handling when meaning must be preserved precisely
+
+**Best for:** stores with non-standard product logic, complex attribute ecosystems, multi-store scope requirements, or operational constraints that cannot tolerate behavior drift.
+
+**Planning approach:**
+
+* Identify meaning-critical fields and workflows.
+* Define transformation rules in plain language: what the destination must display or do.
+* Treat these as scoped requirements so the correct service model can be chosen (Standard Migration, Managed Migration, or Custom Migration).
+
+**Outcome:** higher confidence for complex stores that cannot accept partial behavior drift.
 
 #### Conclusion
 
-Magento’s strength is flexibility. Migration quality depends on deliberate mapping of product types, attributes, and store scope, plus early validation of SEO and search outcomes so catalog meaning survives the move.
+Magento migrations are most predictable when you treat product type behavior, attribute structure, and multi-store scope as first-class deliverables. If you standardize attributes that drive discovery, model product types based on how customers actually buy, and validate each storefront context separately, Magento becomes a controlled outcome project instead of a late cleanup effort.
 
-Run a Demo Migration that includes your most attribute-heavy products, complex product types, and a realistic multi-store sample (if applicable). If you prefer, you can ask Next-Cart to run the Demo Migration using your sample data and share the results so you can confirm direction before committing to full scope.
+Run a Demo Migration using your most complex product types, your most important attribute-driven browse paths, and any storefront contexts that must differ by scope. If you prefer, you can provide sample data and ask Next-Cart to run the Demo Migration and share results, then use Live Chat to align scope and choose the safest service approach.
 
 #### FAQs
 
@@ -145,5 +187,13 @@ Validate these on representative products to confirm the storefront outcome matc
 <summary><strong>Is it possible to migrate invoices to Magento?</strong></summary>
 
 Yes. Next-Cart supports migrating invoices, shipments, and credit memos to Magento. If those entities are important to your operations, validate a small set of representative orders early.
+
+</details>
+
+<details>
+
+<summary><strong>Does Magento support complex product types like bundle and configurable products?</strong></summary>
+
+Yes. Magento supports product types including simple, configurable, bundle, and grouped products. The key migration question is preserving how shoppers select and purchase, not only how records are stored.
 
 </details>

@@ -1,150 +1,156 @@
 # Pre-migration Preparation Checklist for Magento
 
-Magento migrations tend to go smoothly when you treat planning as a way to protect shopper experience, not just move records. The goal is to decide what must remain true after migration and to surface risk early, especially around attributes, catalog structure, and multi-store scope.
+Magento (Adobe Commerce) migrations go more smoothly when preparation is treated as a short planning project, not a last-minute setup phase. Magento is highly structured. That is an advantage when you plan intentionally, but it also means a store can “look migrated” while behaving differently if product types, attribute governance, and storefront scope are not decided early.
 
-This checklist is intentionally conceptual. It helps you prepare clean inputs and approval criteria so your Demo Migration results are meaningful, comparable, and easy to sign off.
+This checklist helps you remove ambiguity before a full run. It focuses on the decisions that most often determine whether Magento feels correct in real shopping and operational workflows - without drifting into technical setup steps.
 
-#### 1) Define your “must-stay-true” buying behaviors
+Before you start, it helps to name the most common avoidable problems:
 
-Before you inventory data, write down what shoppers must still be able to do on day one. For Magento, that usually includes:
+* Products migrate, but selection behavior changes because product types were mis-modeled.
+* Filtering and discovery degrade because attributes are inconsistent or duplicated.
+* Multi-store launches fail because data is correct in one storefront context but wrong in another.
+* Module-driven workflows appear to migrate but do not behave the same way.
+* Validation becomes compressed at the end because acceptance criteria were never defined in shopper terms.
 
-* Find products through search, filtering, and layered navigation that behaves predictably.
-* See the right product information per storefront (website, store, store view).
-* Buy complex products correctly (configurable, bundle, grouped) with expected option behavior.
-* Land on the right pages from existing indexed URLs (especially if SEO matters).
+Use the checklist below to surface these risks early, while decisions are still easy to adjust.
 
-These are not implementation details. They are the behavioral outcomes you will validate later, and they should drive what you consider “in scope” during planning.
+#### 1) Define success in customer and operator terms
 
-#### 2) Focus your planning sample on revenue and risk
+Write down the outcomes that must remain true after migration. Keep them concrete and observable.
 
-Magento stores often have long tails of products and attributes. Planning gets faster when you choose a validation sample that represents complexity, not averages.
+Examples:
 
-Include a mix like:
+* “Customers can find products using our primary category and filtering paths.”
+* “Configurable products behave correctly: shoppers can select the right purchasable option and see the right price.”
+* “Storefront differences by region/language remain consistent where they must differ.”
+* “Wholesale/B2B customers see the correct pricing and catalog visibility (if applicable).”
+* “Support can interpret representative order history scenarios without confusion (if orders are in scope).”
 
-* Best sellers and top traffic products
-* Products with many attributes or “messy” attribute usage
-* At least one example of each product type you sell (simple, configurable, bundle, grouped)
-* Products that rely on filtering and discovery to sell (category browse paths and on-site search)
+These become your pass conditions later. If the store looks complete but fails these outcomes, it is not ready.
 
-Magento migrations go well when complex product behavior and discovery are treated as first-class deliverables, not “we’ll check it later”.&#x20;
+#### 2) Decide product type intent for your highest-impact product families
 
-#### 3) Catalog and attribute audit
+Magento product types define behavior. Preparation should confirm which product types are intended for your major product families, especially where the source platform’s model differs.
 
-Magento’s catalog behavior is heavily shaped by attributes. If attributes are inconsistent, everything downstream gets harder: filtering, search relevance, storefront differences, and product presentation.
+Create a “risk list” of product families that are most likely to break if behavior drifts:
 
-Work through this audit:
+* Configurable products (variation selection behavior)
+* Bundles/kits (required vs optional components, pricing intent)
+* Grouped products (collection-style behavior)
+* Downloadable/virtual products (delivery expectations)
 
-**Attribute inventory (what exists and what matters)**
+For each family, describe buying intent in plain language:
 
-* List the attributes that affect buying decisions (size, color, material, compatibility) versus internal attributes (warehouse notes, legacy flags).
-* Identify attributes that drive discovery: filterable attributes, searchable attributes, and attributes displayed in listings.
-* Flag duplicates and near-duplicates (same meaning, different names or formats).
+* “This is a single product with selectable purchasable options.”
+* “This is a kit with required components.”
+* “This is a group of separately purchasable items.”
+* “This must preserve pricing differences by selection.”
 
-**Why this matters:** Attributes drive catalog behavior and discovery, so the best prevention is to consolidate and standardize essential attributes early.
+This prevents a common failure mode: products exist, but shoppers can’t buy them the way the business expects.
 
-**Value standardization (format, casing, and uniqueness)**
+#### 3) Build a representative Demo Migration sample on purpose
 
-* Normalize “same value, different spelling” issues (for example, “XL” vs “Extra Large”).
-* Decide whether values must remain controlled lists versus free text.
-* Identify attributes where values impact filtering and therefore must be clean.
+A random demo sample creates false confidence. A strong sample intentionally includes complexity because complexity reveals risk.
 
-This is one of the most common Magento failure patterns: migrating attributes without standardization first.
+A high-signal Magento demo sample typically includes:
 
-#### 4) Attribute sets and product family structure
+* Best sellers that represent real revenue expectations
+* The most complex product types you rely on (especially configurable and bundle-like behavior)
+* Categories that define your most important browse paths
+* Products where attribute-driven filtering matters most
+* If you run multiple storefront contexts, include samples that must behave differently by scope
 
-Attribute sets are not just admin organization. They determine which fields exist for products and often become the “shape” of the catalog.
+If order history is in scope, include a small set of representative operational scenarios (support-relevant orders, refunds/credits, shipment context).
 
-Checklist:
+#### 4) Inventory modules and customizations that define store behavior
 
-* List your product families and the attributes each family truly needs.
-* Identify products assigned to the wrong attribute set (it happens often in long-lived stores).
-* Decide whether your target platform expects a similar concept, or whether you need to translate product-family logic differently.
+In Magento, modules and customizations often define what the business experiences as “how the store works.” If those outcomes are not accounted for, the destination store can look correct while being non-functional in critical workflows.
 
-**Prevention mindset:** Define attribute sets per product family and validate early.
+Create a simple list of modules/customizations and classify them by impact:
 
-#### 5) Multi-store scope mapping (websites, stores, store views)
+* Revenue-critical: affects product configuration, pricing logic, promotions, checkout behavior, subscriptions, quote flows, or B2B functionality
+* Operations-critical: affects fulfillment rules, taxes, shipping logic, invoicing/shipment processes, returns workflows, reporting requirements
+* Optional: improves marketing or presentation but does not define core business behavior
 
-Magento’s hierarchy and scope rules can create subtle differences in product data across storefronts. If you do not explicitly map scope, you can end up with “correct data” in one storefront and confusing results in another.
+For each revenue-critical or operations-critical item, write:
 
-Plan:
+* What outcome it must preserve
+* Which product families or customer types it affects
+* How you will validate it (one or two representative scenarios)
 
-* List every storefront (website, store, store view) and what truly differs between them.
-* For each difference, label it as one of:
-  * Shared across all storefronts
-  * Varies by region or language
-  * Varies by brand or channel
-* Decide what must remain distinct after migration (prices, inventory rules, descriptions, categories, CMS content).
+If an outcome cannot be preserved without special handling, treat that as a scoping signal for Custom Jobs or a Custom Migration approach.
 
-**Prevention mindset:** Decide scope intentionally and validate each storefront separately.
+#### 5) Clean and standardize attributes before you judge results
 
-#### 6) Product type behavior audit (simple, configurable, bundle, grouped)
+Magento discovery depends on attribute quality. Attribute inconsistency is one of the fastest ways to create a migrated store that feels broken.
 
-Magento product types influence purchase behavior, not just data storage.
+Planning-level clean-up tasks:
 
-Checklist:
+* Standardize attribute names that represent the same concept (avoid duplicates like “Color” vs “Colour”)
+* Normalize value formats (XL vs Extra Large, “10 in” vs “10-inch”)
+* Identify attributes that must drive filtering versus attributes that are informational only
+* Remove or deprioritize legacy attributes that no longer serve discovery or decision-making
 
-* Identify the product types you use and what makes them “work” for shoppers:
-  * Configurable: option selection, variant pricing, in-stock logic
-  * Bundle: required vs optional components, price behavior, inventory allocation
-  * Grouped: cross-sell behavior and quantity logic
-* List “high-risk products” where incorrect behavior would cause orders, returns, or customer support issues.
+The goal is not perfection. The goal is to make the highest-impact attributes consistent enough that filtering and comparisons remain reliable.
 
-**Prevention mindset:** Validate complex products first, including configurable and bundle behaviors.
+#### 6) Define an attribute set strategy that matches real product families
 
-#### 7) URL continuity planning (especially for SEO-sensitive stores)
-
-Magento can create permanent redirects (301) through URL rewrites, but mapping still requires planning.
+Magento uses attribute sets as the “shape” of product families. If everything is forced into one generic set, the catalog can become hard to manage and inconsistent at scale.
 
 Preparation steps:
 
-* Export or inventory your highest-value URLs (top landing pages, top categories, top product pages).
-* Decide what “acceptable change” looks like:
-  * Same URL structure preserved
-  * URL changes allowed, but must redirect cleanly
-  * Some legacy URLs can be retired (rarely true for SEO-heavy stores)
-* Build a prioritized mapping plan and test top URLs early instead of leaving redirects to the end.
+* List your major product families and the fields that truly matter for each family
+* Decide which fields are required for storefront trust and structured discovery
+* Identify “meaning-critical” fields that must appear consistently across a family
 
-This is another common pitfall: leaving redirects until the end, then discovering that important paths changed in ways you did not anticipate.
+Your objective is maintainability and predictability. A migration that looks correct but becomes impossible to manage will create long-term cost.
 
-#### 8) Search and discovery dependencies
+#### 7) Confirm multi-store scope and what varies by storefront context
 
-For Magento, discovery quality is tightly coupled to attribute quality and indexing behavior. Adobe Commerce 2.4 requires Elasticsearch or OpenSearch for catalog search, which makes search and filtering a true dependency rather than a “nice to have”.
+Magento scope rules (website/store/store view) are a major planning requirement. Most multi-store issues happen because “what varies where” was never decided early.
 
-Preparation checklist:
+Preparation steps:
 
-* Identify the attributes that power filtering and sorting today.
-* List your critical category browse paths and the filters shoppers rely on.
-* Add discovery testing to your early validation plan, because attribute cleanup decisions directly affect search results and filtering usefulness.
+* Define what must be shared globally (core catalog structure, core attributes, core categories)
+* Define what must vary by scope (language, regional content, price differences, visibility rules, root categories)
+* List the storefront contexts that must be validated separately
 
-A frequent failure mode is ignoring search and filtering dependencies until late QA, when fixing discovery issues becomes expensive and stressful.
+Treat each storefront context like its own “mini-launch.” A store that is correct globally can still fail in one specific context.
 
-#### 9) Decide what “Magento-specific” data matters to your business
+#### 8) Identify meaning-critical fields and where they must remain usable
 
-Magento stores can accumulate business-critical records that are not always required for launch, but may be required for operations or customer service.
+Some data matters because it drives behavior or builds customer confidence.
 
-Before migration, decide:
+Make a short list of meaning-critical data that must remain usable after migration:
 
-* Which historical records you must keep accessible (orders, invoices, shipments, credit memos).
-* Whether reviews, gift cards, CMS pages/blocks, and other store content must be preserved as-is or can be rebuilt.
+* Attributes used for filtering and structured discovery
+* Specs that influence buying decisions or compliance
+* Fields that drive storefront labels, eligibility, or merchandising logic
+* Operational fields that teams rely on for support and fulfillment (if applicable)
 
-This is not a technical step. It is a decision about operational continuity and what your team needs on day one versus what can be phased in.
+For each, define:
 
-#### 10) Define sign-off owners and approval criteria
+* Where it must appear (product page, category listing, filters, admin visibility)
+* What it must do (display only, filter, restrict, change pricing, change availability)
 
-Avoid last-minute debates by setting up a simple governance plan:
+This prevents scope drift and keeps validation tied to observable outcomes.
 
-* Who owns catalog correctness (products, variants, options, attributes)?
-* Who owns storefront differences (multi-store scope and localization)?
-* Who owns SEO and URL continuity decisions?
-* Who owns discovery experience (search and filtering quality)?
+#### 9) Set validation ownership and approval gates before the full run
 
-The more complex your scope, the more this structure protects you from late surprises.
+Magento validation succeeds when it is owned. Before Full Migration, define:
+
+* Who approves product selection behavior and pricing outcomes
+* Who approves filtering and category browse outcomes
+* Who approves multi-store scope behavior per storefront context
+* Who approves operational usability for customers and orders (if those are in scope)
+
+Decide what “pass” means for a demo review. A demo is a direction test, not a proof that everything is complete.
 
 #### Conclusion
 
-Magento migration preparation is mostly about clarity: attributes, attribute sets, scope, product behavior, URL continuity, and discovery outcomes. When these are defined early, the migration becomes a controlled validation process instead of an improvised cleanup project.
+Magento preparation is mostly about clarity and governance. Decide product type intent, standardize the attributes that drive discovery, define how scope should work across storefront contexts, and treat module-driven behavior as explicit outcomes that must remain true. If you define pass conditions in shopper terms, build a Demo Migration sample that reflects real complexity, and assign validation ownership early, you avoid the most common Magento migration surprise: data that moved correctly but behaves differently across product types, filtering paths, or storefront scope.
 
-Run a Demo Migration using a sample that reflects your complexity, then review results against the “must-stay-true” behaviors you defined. If you want, you can also share sample data and goals via Live Chat and ask Next-Cart to run the Demo Migration for you and summarize what looks clean versus what needs special handling.
+Run a Demo Migration using your most complex product types, your most important attribute-driven browse paths, and any storefront contexts that must differ by scope. If you prefer, you can provide sample data and ask Next-Cart to run the Demo Migration and share results, then use Live Chat to align acceptance criteria and choose the safest service model.
 
 #### FAQs
 
