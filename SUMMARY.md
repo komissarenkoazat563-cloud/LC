@@ -44,7 +44,7 @@
 * [The Migration Project Roadmap](strategy-and-planning-for-migration/quickstart/README.md)
   * [Migration Roadmap: Timeline, Milestones, and Decision Points](strategy-and-planning-for-migration/quickstart/migration-roadmap-timeline-milestones-and-decision-points.md)
   * [Building a Migration Business Case: Cost, Risk, and ROI](strategy-and-planning-for-migration/quickstart/building-a-migration-business-case-cost-risk-and-roi.md)
-  * [Roles and Responsibilities: RACI for Replatforming Projects](strategy-and-planning-for-migration/quickstart/roles-and-responsibilities-raci-for-replatforming-projects.md)
+  * [Roles and Responsibilities: RACI for Shopping Cart Migration Projects](strategy-and-planning-for-migration/quickstart/roles-and-responsibilities-raci-for-replatforming-projects.md)
 * [Data Preparation and Cleanup for Shopping Cart Migration](strategy-and-planning-for-migration/quickstart-1/README.md)
   * [What to Prepare Before You Purchase a Migration Service](strategy-and-planning-for-migration/quickstart-1/quickstart.md)
   * [Data Mapping Strategy: Structuring Data for the Target Platform](strategy-and-planning-for-migration/quickstart-1/quickstart-1.md)

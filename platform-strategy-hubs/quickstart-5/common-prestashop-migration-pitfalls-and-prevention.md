@@ -1,184 +1,210 @@
 # Common PrestaShop Migration Pitfalls and Prevention
 
-Most PrestaShop migration problems are predictable. They usually happen when teams underestimate module dependency, treat multistore as a simple toggle, or validate counts instead of validating real shopping behavior.
+Most PrestaShop migration problems are predictable. They usually happen when teams underestimate module dependency, treat multistore scope as a simple toggle, or validate counts instead of validating real shopping behavior.
 
-This page covers the most common pitfalls and how to prevent them using a planning-first, validation-first approach.
+PrestaShop is flexible, but that flexibility has a cost: the same “data” can behave differently depending on how combinations are modeled, how features are structured, which customer groups and pricing rules are active, and which modules own critical logic. Attributes are the basis of product variations (called combinations in PrestaShop), while features describe product characteristics that do not create variations.
 
-### Pitfall 1: Assuming the “core store” defines behavior, not modules
+Each pitfall below includes what goes wrong, early warning signs, prevention, and a clear example you can use as a validation gate.
 
-#### What goes wrong
+#### Pitfall 1: Assuming the core platform defines behavior, not modules
 
-PrestaShop stores often depend on modules for pricing logic, catalog fields, promotions, checkout behavior, and SEO outcomes. If you plan migration scope using only standard platform fields, the store may migrate “successfully” while losing business-critical meaning.
+**What Goes Wrong**
 
-This shows up as:
+PrestaShop stores often depend on modules for pricing logic, catalog fields, promotions, checkout behavior, and SEO outcomes. If you plan scope using only standard platform fields, the store can migrate “successfully” while losing business-critical meaning. This produces a dangerous illusion: products and customers exist, but the store does not behave the way the business sells.
 
-* Missing or incomplete product meaning that was stored in module-owned fields
-* Pricing behavior that no longer matches real business rules
-* Checkout flow differences that affect conversion
+**Early Warning Signs**
 
-#### Prevention
+* Many modules influence pricing, promotions, checkout, shipping, tax, or SEO
+* Custom product fields or special catalog behaviors exist outside standard product data
+* Different modules interact to create one buying flow
+* Multistore is enabled and modules behave differently by shop context
 
-Start preparation by inventorying modules that affect revenue-critical behavior:
+**Prevention**
 
-* catalog structure and custom product fields
-* pricing and promotions
-* checkout flow (payment, shipping, tax logic)
-* SEO behavior (URLs, canonical settings, redirects)
+* Inventory modules early and classify them by business impact (revenue-critical vs optional)
+* Define outcomes that must remain true, not just fields that must exist
+* Build your Demo Migration sample around module-sensitive products and workflows, not random items
+* Treat “module-owned meaning” as a primary validation lens across Product, Customer, Order, and SEO
 
-Then build your validation sample around module-sensitive products and flows, not random catalog items.
+**Recommendation example**
 
-### Pitfall 2: Treating combinations like generic variants without defining sellable reality
+* **Wrong**: “We migrated the catalog, we can install modules later.”
+* **Right**: “The store must reproduce three module-dependent buying flows that drive revenue.”
+* **Pass condition**: Those flows behave correctly end-to-end in the Demo Migration sample.
 
-#### What goes wrong
+#### Pitfall 2: Combination logic looks correct, but shoppers can buy the wrong outcome
 
-PrestaShop combinations are created from attribute sets. Many stores sell only a subset of combinations or depend on conditional logic that limits availability.
+**What Goes Wrong**
 
-A common migration failure is:
+Combinations are created from attributes, and customers rely on them to select what they are actually buying. If attribute mapping or combination logic is mis-modeled, shoppers may be able to select combinations you do not sell, see incorrect pricing after selection, or add the wrong purchasable outcome to cart. Attributes are explicitly the basis of variations (combinations) in PrestaShop, so this pitfall is often the highest-impact product risk.
 
-* combinations exist, but shoppers can select combinations you do not actually sell
-* variation pricing is flattened or inconsistent
-* inventory expectations change at the combination level
+**Early Warning Signs**
 
-#### Prevention
+* Many option dimensions (size, color, pack size, material, region, compatibility)
+* Variation-level pricing or stock matters
+* Only a subset of combinations is sellable
+* Complex option logic previously relied on custom development or modules
 
-Define sellable reality before you lock scope:
+**Prevention**
 
-* Which choices must define real sellable variations?
-* Which choices are customizations or add-ons and should not inflate combinations?
-* Do you sell all combinations or only a subset?
+* Define sellable reality before you lock scope: which choices create a sellable variation and which do not
+* Validate combination-heavy best sellers first using full buying-path pass conditions
+* Confirm that selection changes the correct purchasable outcome and stays consistent from product page to cart to checkout
+* Treat combination behavior as a primary acceptance gate, not a secondary check
 
-Validate combination-heavy best sellers early in a Demo Migration sample so you can confirm the selection flow matches your real selling logic.
+**Recommendation example**
 
-### Pitfall 3: Combination explosion caused by misclassifying choices
+* **Wrong**: “Combinations exist, so variation logic is correct.”
+* **Right**: “A shopper selects attributes, sees the correct price and availability, adds to cart, and checkout reflects the selected combination.”
+* **Pass condition**: Selection-to-checkout outcomes match expectations for representative products.
 
-#### What goes wrong
+#### Pitfall 3: Combination explosion or missing meaning caused by misclassifying product information
 
-Combination counts can grow multiplicatively. If you convert too many characteristics into combination-driving attributes, you increase:
+**What Goes Wrong**
 
-* catalog complexity
-* validation workload
-* risk of inconsistency across similar products
+PrestaShop separates variation-driving attributes (combinations) from descriptive characteristics (features). When this boundary is not respected, two failure patterns appear:
 
-Even when the platform can technically represent the combinations, operational manageability can degrade.
+1. Too many combinations: everything becomes an attribute, combination counts grow multiplicatively, and the catalog becomes harder to validate and manage.
+2. Too little meaning: everything becomes descriptive data, and customers lose purchase clarity because sellable differences are not modeled as combinations.
 
-#### Prevention
+Features are designed to describe product characteristics, and they can be created and assigned to products independently of combinations.
 
-Use a structure rule:
+**Early Warning Signs**
 
-* Use combinations for inventory-defining choices that must behave like sellable SKUs.
-* Use descriptive structures for characteristics that support discovery or product understanding.
+* Similar products use inconsistent option and specification patterns
+* Catalog teams historically used “options” for both buying choices and specifications
+* Category filtering depends on structured characteristics that are not standardized
+* Products behave like configurators rather than consistent catalog items
 
-If a product becomes “configurator-like,” treat it as a high-risk item and validate it first.
+**Prevention**
 
-### Pitfall 4: Mixing up attributes and features, leading to either too many combinations or too little meaning
+* Apply a structure rule in shopper terms:
+  * “Does this define what the customer is buying?” Use attributes and combinations
+  * “Does this help customers find, compare, or understand?” Use features or descriptive structures
+* Validate a category sample for consistency across similar products
+* Treat “combination explosion” as a planning risk, not only a technical one, because it expands validation workload and increases inconsistency risk
 
-#### What goes wrong
+**Recommendation example**
 
-PrestaShop often distinguishes between variation-driving attributes and descriptive product characteristics (features). In real stores, these are frequently mixed or used inconsistently.
+* **Wrong**: “We turned every specification into an attribute so filters will work.”
+* **Right**: “We use combinations only for sellable differences and use features for comparable specifications.”
+* **Pass condition**: Similar products follow a consistent pattern and customers can both select variations and compare meaningfully.
 
-Two failure patterns are common:
+#### Pitfall 4: Category navigation and filtering look complete, but discovery behavior breaks
 
-* Everything becomes an attribute, generating unnecessary combinations.
-* Everything becomes a descriptive field, reducing variation accuracy and purchase clarity.
+**What Goes Wrong**
 
-#### Prevention
+Category migration can look correct in a spreadsheet while failing in real shopping behavior. This often happens when categories were historically used like tags, when browse intent is unclear, or when filtering depends on structured data that is inconsistent. In many PrestaShop setups, faceted search is powered by the faceted search module, and filtering quality depends on the integrity and consistency of the underlying attributes and features.
 
-Decide what each field represents in shopper terms:
+**Early Warning Signs**
 
-* “Does this define what the customer is buying?” (variation logic)
-* “Does this help the customer find or compare?” (descriptive meaning)
+* Top categories are traffic drivers and function as landing pages
+* Filtering is commercially important for conversion (large catalogs, many similar items)
+* Attribute and feature values vary across similar products
+* Multistore categories differ by storefront and are not validated separately
 
-Then validate a category sample to confirm the pattern is consistent across similar products.
+**Prevention**
 
-### Pitfall 5: Category mapping that preserves records but breaks navigation
+* Validate browsing, not just category presence: start with top categories by traffic or revenue
+* Confirm key products appear where customers expect and that browse-to-product journeys still make sense
+* If filtering matters, validate that the filter dimensions work reliably across a representative category sample
+* Treat discovery as a behavior system, not a record-transfer task
 
-#### What goes wrong
+**Recommendation example**
 
-Category migration can look correct in spreadsheets while failing in real shopping behavior. This is especially common when:
+* **Wrong**: “Categories imported, so navigation is correct.”
+* **Right**: “Top category journeys must feel the same and lead customers to the same buying outcomes.”
+* **Pass condition**: Representative browse paths produce expected product sets and filtering narrows results predictably.
 
-* categories were used like tags
-* category trees were built historically without a clear browsing intent
-* multistore categories differ by storefront and are not validated separately
+#### Pitfall 5: Pricing and promotions drift because rule behavior is only validated superficially
 
-#### Prevention
+**What Goes Wrong**
 
-Validate browsing, not just category presence:
+Pricing problems in PrestaShop often do not reveal themselves in a simple product review. They appear in real scenarios: customer group pricing, cart rules (vouchers), and specific prices applied by context (such as customer group, currency, or country). Cart rules are a central promotion mechanism in PrestaShop, and “cart rule” and “voucher” are treated as interchangeable in the user documentation. Specific prices can be defined depending on parameters such as customer group, currency, and country.
 
-* start with top categories by traffic or revenue
-* confirm key products appear where customers expect
-* validate browse-to-product journeys that drive conversions
+If these behaviors are not validated end-to-end, you can launch with a store that looks correct, but produces incorrect totals, incorrect eligibility, or inconsistent discount outcomes.
 
-Treat category structure as navigation design, not data storage.
+**Early Warning Signs**
 
-### Pitfall 6: Multistore scope treated as “one store with extra views”
+* B2B or segmented pricing is revenue-critical
+* Discounts are complex (free shipping conditions, gifts, stacking rules, exclusions)
+* Specific prices and targeted pricing are used for different customer segments or regions
+* Modules influence pricing, tax display, or checkout totals
 
-#### What goes wrong
+**Prevention**
 
-Multistore changes the meaning of “the same product.” Pricing, visibility, content, and languages can differ across storefront contexts. A common mistake is validating one storefront deeply and assuming the rest match.
+* Validate pricing and promotions as scenarios, not as isolated field checks
+* Build representative baskets for the highest-impact rules (common cart sizes, common discount patterns, key customer groups)
+* Confirm the outcome at product page, cart, and checkout readiness levels
+* Treat pricing outcomes as a core acceptance gate because they directly affect revenue and trust
 
-This can cause:
+**Recommendation example**
 
-* missing products or incorrect pricing in a secondary storefront
-* inconsistent category behavior across stores
-* language and content gaps that are only discovered late
+* **Wrong**: “Product prices look correct, discounts can be adjusted later.”
+* **Right**: “Three representative customer profiles must see correct pricing and promotions for three representative baskets.”
+* **Pass condition**: Cart and checkout outcomes match expected eligibility and totals for the sample scenarios.
 
-#### Prevention
+#### Pitfall 6: Multistore is treated as one store with extra views
 
-Define scope rules explicitly:
+**What Goes Wrong**
 
-* which storefronts are in scope
-* what is shared versus store-specific
-* which storefront contexts require their own validation list
+Multistore changes the meaning of “the same product.” Configuration, content, and behavior can be managed by shop context, and validating one storefront deeply does not guarantee the others are correct. PrestaShop explicitly supports managing multiple shops within a single instance under multistore.
 
-Treat multistore as a validation multiplier and plan review effort accordingly.
+**Early Warning Signs**
 
-### Pitfall 7: SEO continuity handled last (URLs, canonical behavior, redirects)
+* Multiple storefronts differ in pricing, language, catalog visibility, or category structure
+* Different domains or shop contexts are used for regions or brands
+* Modules behave differently by shop context
+* Teams can only realistically validate one storefront under time pressure
 
-#### What goes wrong
+**Prevention**
 
-Even short-term URL breaks can impact organic traffic, campaigns, and customer trust. PrestaShop SEO outcomes can be influenced by configuration and modules, which increases variability.
+* Define scope rules explicitly: which storefronts are in scope and what is shared versus shop-specific
+* Treat multistore as a validation multiplier and plan review effort accordingly
+* Validate at least one representative journey per storefront context where behavior differs
+* Ensure acceptance criteria are defined per context, not globally
 
-Common symptoms:
+**Recommendation example**
 
-* high-value landing pages return errors
-* redirects land on incorrect destinations
-* category landing pages lose traffic after launch
+* **Wrong**: “We validated the main storefront, the others should match.”
+* **Right**: “Each in-scope storefront context has its own minimal validation list for products, pricing, and discovery.”
+* **Pass condition**: Representative journeys succeed in each shop context without relying on assumptions.
 
-#### Prevention
+#### Pitfall 7: SEO continuity is handled last and becomes a launch-day emergency
 
-Use a priority URL method:
+**What Goes Wrong**
 
-* build a list of top product, category, and landing page URLs
-* confirm each either resolves directly or redirects cleanly to the correct destination
-* validate priority URLs early, not during launch week
+Even short-term URL breaks can impact organic traffic, campaigns, and customer trust. In PrestaShop, SEO outcomes can be influenced by configuration (including canonical behavior) and sometimes by theme or module implementation. The SEO and URLs documentation highlights canonical URL behavior and how it is implemented using rel="canonical".
 
-### Pitfall 8: Validating totals instead of validating shopper outcomes
+The most common failure is not “SEO is wrong everywhere.” It is narrower and more expensive: priority landing pages fail to resolve intentionally after cutover.
 
-#### What goes wrong
+**Early Warning Signs**
 
-Counts can match while the store sells incorrectly. This happens when:
+* Strong organic traffic and many indexed pages
+* Paid campaigns rely on legacy landing pages
+* Source and target URL patterns differ
+* No clear ownership for a priority URL list and validation gates
 
-* combinations are wrong
-* module-owned meaning is missing
-* navigation does not match browse intent
-* priority URLs do not resolve correctly
+**Prevention**
 
-#### Prevention
+* Use a priority URL method: build a list of top product, category, and landing page URLs
+* Confirm each priority path either resolves directly or redirects cleanly to the correct destination
+* Validate priority URLs early, not during launch week
+* If your PrestaShop environment does not provide a practical way to manage the redirects you need, plan for a suitable redirect mechanism before cutover
 
-Validate outcomes that customers feel:
+**Recommendation example**
 
-* “Can shoppers find products through the main browse paths?”
-* “Can shoppers select the correct variation and buy it?”
-* “Does product information support confident decisions?”
-* “Do priority landing pages still resolve correctly?”
-
-Use a Demo Migration sample to confirm these outcomes before you commit to a full run.
+* **Wrong**: “We will fix URLs and redirects after launch.”
+* **Right**: “Priority paths must resolve intentionally before cutover, even if the rest are handled gradually.”
+* **Pass condition**: A prioritized list of old paths resolves correctly to intended destinations.
 
 ### Conclusion
 
-PrestaShop migrations are most likely to fail when complexity is hidden: module-owned meaning, multistore scope rules, and combination behavior that is not defined in sellable terms. When you surface those realities early and validate behavior using representative samples, the migration becomes predictable rather than reactive.
+PrestaShop migrations are most likely to fail when complexity is hidden: module-owned meaning, multistore scope rules, and combination behavior that is not defined in sellable terms. The strongest prevention strategy is behavior-first validation: confirm product purchase behavior, discovery journeys, customer and pricing outcomes, order usability, and any SEO-critical paths using a representative Demo Migration sample.
 
-Run a Demo Migration using your most combination-heavy best sellers, module-sensitive products, top categories, and priority URLs. If multistore is in scope, include multiple storefront contexts. If you prefer, you can ask Next-Cart to run the Demo Migration using your sample data and share results, then use Live Chat to align scope and choose the safest approach before committing to a full migration.
+Run a Demo Migration using your most combination-heavy best sellers, module-sensitive products, top categories, and pricing scenarios. If multistore is in scope, include multiple storefront contexts. If SEO continuity materially affects revenue, add a small priority URL list.
+
+If you want a faster, more reliable validation cycle, you can provide a representative sample and ask Next-Cart to run the Demo Migration and share results for review. For module-heavy stores, multistore scope, or segmented pricing, Live Chat is the most efficient way to align scope and confirm the safest migration approach before timelines tighten.
 
 #### FAQs
 
@@ -195,5 +221,37 @@ Yes. Next-Cart supports PrestaShop multistore and multi-language scenarios.
 <summary><strong>Does a plugin need to be installed to complete the SEO URL migration for PrestaShop?</strong></summary>
 
 Not usually. PrestaShop includes SEO & URLs configuration and guidance for URL and redirection behavior.
+
+</details>
+
+<details>
+
+<summary><strong>What is the most common mistake in PrestaShop migration validation?</strong></summary>
+
+Using totals as the main success signal. Counts can look correct while combinations behave differently, pricing rules drift in real carts, or multistore contexts diverge. Validate buying paths and operational scenarios first.
+
+</details>
+
+<details>
+
+<summary><strong>Why do combinations need deeper validation than “products imported”?</strong></summary>
+
+Because combinations define what customers can actually buy. Attributes are the basis of product variations (combinations), so incorrect combination behavior can cause the store to sell the wrong outcome even when product records exist.
+
+</details>
+
+<details>
+
+<summary><strong>How should I validate promotions in PrestaShop without testing every discount?</strong></summary>
+
+Validate scenarios. Cart rules are the core voucher mechanism, and pricing behavior often changes only in real baskets. Build a small set of representative baskets and confirm outcomes for the customer groups and rules that matter most.
+
+</details>
+
+<details>
+
+<summary><strong>Does PrestaShop multistore change how I should validate a migration?</strong></summary>
+
+Yes. Multistore supports managing multiple shops within a single instance, so you must validate per shop context when behavior differs.
 
 </details>
