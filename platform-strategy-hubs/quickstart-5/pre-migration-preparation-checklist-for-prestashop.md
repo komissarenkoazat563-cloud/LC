@@ -1,174 +1,214 @@
 # Pre-migration Preparation Checklist for PrestaShop
 
-PrestaShop migrations are usually won or lost before the first full run begins. The biggest risks are not “missing data” in the abstract. They are mismatches in meaning caused by module-owned fields, multistore scope ambiguity, complex combinations, and URL continuity surprises.
+A PrestaShop migration rarely fails because data cannot be transferred. It fails when the store’s logic is recreated differently on the new platform, often without anyone noticing until customers start browsing, filtering, or checking out.
 
-This checklist is planning-only. Use it to define what must remain true for shoppers, choose the right sample for validation, and avoid discovering structural risks late.
+PrestaShop is especially sensitive to this because day-to-day store behavior is shaped by how you model variations (combinations), how you represent specifications (features), how you segment customers (groups), and how much of your business logic lives inside modules or customizations. If these decisions are not made intentionally before migration, the new store can look “complete” while still behaving incorrectly in the places that matter most.
 
-### What this checklist helps you avoid
+Use this checklist as a planning gate before you commit to the final migration run. The objective is not documentation for its own sake. It is to define what “correct” means for your store in PrestaShop so your migration can be validated with confidence.
 
-* Products migrate, but combinations behave differently and customers can select the wrong variation.
-* Modules store critical meaning, but that meaning is not identified early, so the target store looks correct but sells incorrectly.
-* Multistore is in scope, but “shared vs store-specific” is not defined, causing validation gaps and timeline drift.
-* Categories transfer, but browsing no longer matches how customers shop.
-* SEO continuity is handled last, leading to broken high-value URLs at launch.
+If you need deeper context on how PrestaShop structures products, customers, and operational logic, review **PrestaShop Data Model Differences** before you finalize this checklist.
 
-### 1) Define success in shopper terms
+#### 1) Inventory what is “platform-native” vs “module-owned”
 
-Write success criteria as customer outcomes, not admin outcomes.
-
-Examples:
-
-* Customers can find products through the same top category paths.
-* Customers can select the correct variation and pricing behaves the same way.
-* Key product information is still visible and trustworthy (specs, compatibility, key attributes).
-* Priority landing pages still resolve correctly after launch.
-
-This becomes your acceptance criteria during validation. If counts match but these fail, the migration is not ready.
-
-### 2) Inventory module dependency and mark what is revenue-critical
-
-PrestaShop stores often rely on modules for core revenue behavior. Preparation should start by identifying where meaning is stored and what logic is being applied.
-
-Create a short list of modules that affect:
-
-* Product data and catalog structure (custom fields, bundles, personalization, advanced options)
-* Pricing and promotions (customer-group pricing, cart rules, tiered pricing)
-* Checkout flow (payment, shipping, tax logic)
-* SEO behavior (URLs, canonical settings, redirects)
-
-For each revenue-critical module, note:
-
-* What data it stores (fields, rules, relationships)
-* What customer behavior it controls
-* Whether that meaning must be preserved exactly, or can be simplified without harming outcomes
-
-If a module’s behavior is business-critical and not easily represented by standard platform structures, treat it as a risk item and validate early.
-
-### 3) Clarify combinations and variation logic before you lock scope
-
-PrestaShop uses combinations (attribute-based variations). The key question is not “do options exist,” but “do customers end up buying the same sellable items with the same pricing and inventory expectations.”
+PrestaShop stores often rely on modules to extend core behavior. Before migration, create a simple inventory of what your current store depends on so you can plan what must be recreated and what can be simplified.
 
 Preparation checks:
 
-* Identify your most combination-heavy products.
-* List the attributes that must create real sellable variations.
-* Identify any choices that are customizations or add-ons and should not inflate combinations.
-* Flag any products where only a subset of combinations should be purchasable.
+* List modules that affect catalog structure, pricing, promotions, checkout, shipping, tax, SEO, and content.
+* Identify any custom fields that exist only because of a module, an integration, or custom development.
+* Flag modules that “change meaning” (for example, they alter product availability rules, pricing logic, or checkout behavior).
+* Decide which behaviors must be preserved exactly vs which can be replaced with a simpler, PrestaShop-native approach.
 
-If you have products with conditional option behavior or partial availability, include them in your earliest validation sample.
+Pass condition:
 
-### 4) Plan category structure as navigation, not storage
+* You can explain which parts of your store are core and which parts are extensions, and you have agreed which ones are in scope for recreation.
 
-Categories are the foundation of browsing in many PrestaShop stores, and migration risk is usually “navigation feels wrong,” not “category records are missing.”
+#### 2) Define your variation logic using attributes and combinations
 
-Preparation checks:
-
-* Identify your top 10–20 categories by traffic or revenue.
-* List the top browse paths customers use to reach products.
-* Flag “tag-like” category patterns (heavy multi-assignment) and decide whether some of that intent should become structured attributes instead.
-
-Your validation plan should prioritize browse journeys, not just category counts.
-
-### 5) Identify the product meaning that must be preserved
-
-Stores often rely on structured product meaning beyond the basic title, price, and description.
+In PrestaShop, product variations are typically modeled through attributes and combinations. This is the foundation for how shoppers select options and how stock and pricing can differ across variants.
 
 Preparation checks:
 
-* Identify the attributes and specifications that drive purchase confidence (materials, dimensions, compatibility, warranty, key technical specs).
-* Mark what must be filterable versus what only needs to be displayed on product pages.
-* Identify any meaning that is currently stored in non-obvious places (module fields, tags, custom tables, theme-driven fields).
+* Define which option sets must create sellable variants (for example: size, color, material).
+* Confirm whether variant-level identifiers are required (SKU-like references per combination).
+* Clarify which variants have unique images, prices, or stock.
+* Identify products where the source platform treated variants as separate products and decide how to represent them in PrestaShop without breaking navigation or SEO intent.
 
-Classify each item:
+Pass condition:
 
-* Must preserve: required for buying decisions, compliance, fulfillment, or critical discovery
-* Should preserve: important for merchandising and trust, but has alternatives
-* Nice to have: legacy, duplicated, or low impact
+* You can describe, per product type, how customers will choose options and how those choices map to sellable variants in PrestaShop.
 
-This prevents scope drift and makes validation clearer.
+#### 3) Separate “features” from “variations” to protect filtering and merchandising
 
-### 6) If multistore is involved, define scope rules explicitly
+Many stores mix together two ideas:
 
-PrestaShop multistore multiplies decisions. Preparation must define what “in scope” actually means.
+* What a product is (specifications)
+* What a product can be (variants)
 
-Preparation checks:
-
-* List which storefronts are in scope.
-* Define what is shared across stores versus store-specific:
-  * Products and categories
-  * Pricing and customer groups
-  * Languages and content
-  * Domains and URL behavior
-* Define validation ownership per storefront context.
-
-If stores behave differently, plan separate validation priorities per storefront. Do not assume one sample covers all.
-
-### 7) Build a priority URL and SEO continuity plan
-
-If SEO or campaign traffic matters, URL continuity is a deliverable, not a best-effort task.
+PrestaShop supports both concepts, but they serve different outcomes. If you map them incorrectly, your store can lose filtering accuracy, comparison clarity, and category navigation quality.
 
 Preparation checks:
 
-* Create a priority URL list:
-  * Top product URLs
-  * Top category URLs
-  * Key landing pages that drive organic or paid traffic
-* Decide what “success” looks like:
-  * Preserve URLs where possible, or
-  * Allow change but require clean redirects to the correct destination
+* Identify specification-like fields that must remain consistent across all variants (for example: dimensions, technical standards, compatibility).
+* Decide which specifications must be filterable, which must be displayed only, and which can be removed entirely.
+* Confirm how specification values should appear in product presentation and in category-level filtering.
 
-Validate priority URLs early in your validation cycle, not during launch week.
+Pass condition:
 
-### 8) Choose a validation sample that reflects real complexity
+* Each attribute or spec from the source store has an intentional destination: variation logic, filterable spec, display-only spec, or out-of-scope.
 
-A strong Demo Migration sample is not random. It intentionally includes the items most likely to fail.
+#### 4) Rebuild category navigation as customer journeys, not a folder structure
 
-Include:
-
-* Best sellers
-* Most combination-heavy products
-* Products dependent on module-owned fields or logic
-* Top categories and key browse paths
-* Priority URLs
-* Multiple storefront contexts if multistore is in scope
-
-Your goal is not “does it import.” Your goal is “does it behave correctly for shoppers.”
-
-### 9) Define validation responsibilities and sign-off rules
-
-Validation is faster when you define owners and sign-off criteria early.
+Categories in a successful store are not just organization. They are browsing paths. Your preparation should treat category structure as a shopper behavior model.
 
 Preparation checks:
 
-* Who signs off on product and variation correctness (sellable choices, pricing behavior, inventory expectations)
-* Who signs off on navigation correctness (category paths, key browse flows)
-* Who signs off on product meaning (specs, attributes, filtering expectations)
-* Who signs off on URL continuity (priority URLs and redirects)
+* Identify your highest-traffic categories and their expected product coverage.
+* Document the intended browse path for key buyer journeys (how customers narrow from broad to specific).
+* Identify “navigation categories” that exist only for merchandising, promotions, or grouping.
+* Decide how to handle products that belong in multiple categories without confusing the “primary” browsing path.
 
-Then define what “pass” means for the demo sample. If the demo reveals structural mismatch, treat it as a decision point for approach selection.
+Pass condition:
 
-### 10) Choose the right approach based on risk and evidence
+* Your category plan describes how customers should discover products, not just where products should be stored.
 
-PrestaShop projects often need more support when:
+#### 5) Clarify segmentation and pricing rules before migrating customers
 
-* Module dependency is high
-* Multistore scope is complex
-* Combination logic is heavy and sensitive
-* SEO continuity is business-critical
+In PrestaShop, customer segmentation and pricing outcomes can be shaped by customer groups and pricing rules. If you migrate customers without defining how segmentation should behave, your store can appear correct while pricing or tax display behavior is wrong for important audiences.
 
-Use Demo Migration results to decide:
+Preparation checks:
 
-* Standard Migration when mapping is clean and risk is low
-* Managed Migration when you need expert-led mapping and guided QA
-* Custom Migration when preserving meaning requires special handling (Custom Jobs)
+* Identify customer segments that must keep distinct pricing or tax-display behavior (for example: B2B vs retail).
+* Decide whether group membership needs to be migrated or rebuilt.
+* Document any tiered pricing, catalog-level rules, or customer-specific pricing logic that must be preserved.
+* Confirm whether coupon logic and promotion structure should be recreated exactly or simplified.
 
-### Conclusion
+Pass condition:
 
-PrestaShop preparation is about surfacing hidden complexity early: module-owned meaning, multistore scope rules, combination behavior, navigation intent, and URL continuity. When those are defined before you commit to full execution, the migration becomes predictable instead of reactive.
+* You can describe how a returning customer should be classified and what pricing they should see, without relying on manual intervention.
 
-Run a Demo Migration using a sample that includes your most module-sensitive products, your most combination-heavy items, your top browse categories, and your priority URLs. If you prefer, you can ask Next-Cart to run the Demo Migration using your sample data and share the results, then use Live Chat to align scope and confirm the safest approach for your store.
+#### 6) Confirm localization scope (languages, currencies, and regional rules)
+
+Internationalization can change the meaning of prices, content, and store policies. Confirm what is in scope before migration so your validation is not ambiguous.
+
+Preparation checks:
+
+* Confirm the languages that must be supported at launch.
+* Confirm the currencies that must be supported at launch.
+* Identify which product content fields must be localized vs which can remain in one language initially.
+* Confirm regional differences that affect operations, such as tax expectations, shipping rules, or customer communications.
+
+Pass condition:
+
+* Your target store scope is explicit: which languages, which currencies, and what level of localization completeness is required for launch.
+
+#### 7) Define shipping and tax expectations as operational outcomes
+
+Shipping and tax configuration is not just “settings.” It determines whether checkout totals are correct, whether customers trust the store, and whether operations can fulfill orders consistently.
+
+Preparation checks:
+
+* Define the shipping logic that must be preserved (weight-based, price-based, destination-based, carrier-based).
+* Identify products where shipping depends on special conditions (oversized, hazardous, fragile, free-shipping eligibility).
+* Confirm the tax model expectations at a planning level (how tax rules are applied, and whether prices are shown tax-included or tax-excluded for key audiences).
+* Decide which outcomes must be validated first (for example: correct totals for top-selling SKUs shipped to top destinations).
+
+Pass condition:
+
+* You can name the 5–10 highest-risk checkout scenarios and what “correct” looks like for each.
+
+#### 8) Map order lifecycle meaning before migrating history
+
+Order history is valuable only if it retains meaning. If you migrate orders without defining how statuses and transitions should be interpreted in PrestaShop, reporting and support workflows can break.
+
+Preparation checks:
+
+* Identify the order statuses that matter to your team and customers (paid, shipped, delivered, refunded, canceled).
+* Decide how historical statuses should be mapped when the source platform has different definitions.
+* Confirm whether invoices, shipments, or fulfillment information must be present for historical orders, or if it is acceptable to preserve only a simplified state.
+
+Pass condition:
+
+* A team member can review a migrated order and interpret it correctly without needing the old platform open.
+
+#### 9) URL continuity and redirects
+
+Not every migration needs a large redirect effort. If most of your acquisition is not SEO-driven, a smaller approach is often enough.
+
+Preparation checks:
+
+* Create a “priority URL list” (top categories, top products, top content pages, top inbound-link targets).
+* Decide which URLs must be preserved exactly vs which can redirect to the closest equivalent destination.
+* Define how you will validate URL behavior on the new site before go-live, using path-to-path checks on a staging domain.
+
+Pass condition:
+
+* You can test a small set of priority URLs end-to-end and confirm the destination behavior is acceptable.
+
+#### 10) Build a Demo Migration sample that reflects real complexity
+
+A Demo Migration is not a data transfer test. It is a store behavior test. Your sample must reflect the complexity that creates migration risk.
+
+A strong sample typically includes:
+
+* Best-selling products across key categories.
+* Products with multiple combinations and option logic.
+* Products where pricing, stock, or images differ by variant.
+* Products affected by modules or custom fields.
+* Customers from key segments (including B2B-like segments, if applicable).
+* Orders that represent your most common checkout scenarios.
+
+Pass condition:
+
+* Your demo sample includes enough complexity that a successful result gives you confidence, not false comfort.
+
+#### 11) Assign validation ownership and sign-off criteria before final migration
+
+Validation fails most often because it is treated as a general review instead of an owned process.
+
+Preparation checks:
+
+* Assign owners for catalog integrity, customer behavior, operational integrity, and storefront experience.
+* Define “pass criteria” for each area (what must be true for sign-off).
+* Decide which issues require correction before launch vs which can be scheduled post-launch.
+
+Pass condition:
+
+* Validation has owners, criteria, and a decision mechanism, not just a checklist.
+
+#### 12) Choose the migration approach based on evidence, not assumptions
+
+Your Demo Migration results and preparation outcomes should drive the right service selection.
+
+Practical guidance:
+
+* If the demo results are clean and scope is standard, a streamlined approach may be sufficient.
+* If modules, complex combinations, segmentation, or operational rules create uncertainty, a managed approach often reduces risk.
+* If you require custom handling of fields, unique logic, or special workflows, plan for a custom scope.
+
+Pass condition:
+
+* Your migration approach is chosen because the demo and scope evidence support it.
+
+#### Conclusion
+
+A strong PrestaShop migration plan is built around behavior, not totals. When you define how products should be chosen, how specifications should be represented, how customers should be segmented, and how orders should retain meaning, you prevent the most common failure pattern: a store that looks correct but behaves incorrectly.
+
+Treat this checklist as your pre-migration contract with your future store. If every pass condition is met, your migration becomes predictable, testable, and far easier to validate.
+
+You can run a Demo Migration to validate the most important store behaviors before committing to the full migration. If you prefer an assisted approach, you can share a representative sample of your data, and Next-Cart can run the Demo Migration and provide the results for review. For scoping support or expectation alignment, Live Chat is the fastest way to confirm what should be preserved, what can be simplified, and which migration approach best fits your store.
 
 #### FAQs
+
+<details>
+
+<summary><strong>Is it possible to migrate to a localhost website?</strong></summary>
+
+Migration tools typically require a publicly reachable website URL to connect and transfer data. If you want a private environment for testing, use a staging site with controlled access rather than a local-only address.
+
+Or you can setup a temporary public URL for localhost using [Ngrok](https://ngrok.com/download). After installing Ngrok and starting a tunnel, you will get a public URL for your localhost site. You can enter the URL in the migration tool and start the migration.
+
+</details>
 
 <details>
 
@@ -188,8 +228,8 @@ URL redirects are used to send visitors from old URLs to the correct new destina
 
 <details>
 
-<summary><strong>Is it possible to migrate to a localhost website?</strong></summary>
+<summary><strong>Can I migrate new orders and other data after finishing the first migration process?</strong></summary>
 
-Yes. A localhost target can be used for testing and validation. The important planning point is to ensure your demo validation focuses on behavior (variations, category browsing, product meaning, and priority URL handling) so you confirm real outcomes before moving toward production.
+Yes. If new records are created after your initial migration, you can use Recent Data Migration to bring over the new data without repeating the full migration.
 
 </details>

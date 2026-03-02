@@ -5,7 +5,7 @@ metaLinks:
       https://app.gitbook.com/s/EwOn3si2UOVRL65zVOMg/getting-started/quickstart-4
 ---
 
-# When Is the Right Time to Change Ecommerce Platforms?
+# When Is the Right Time to Change eCommerce Platforms?
 
 A platform change is usually triggered by growth constraints, operational friction, or experience limitations that you cannot solve cleanly with your current stack. But the decision becomes real when you recognize a second truth: changing platforms also means completing a shopping cart data migration that preserves continuity for products, customers, orders, and SEO-critical pages.
 
@@ -132,9 +132,9 @@ If you need a standardized way to estimate scope, Entity Points measure migratio
 
 Entity Points are consumed only when new records are migrated for the first time. Previously migrated records are recorded in the system and can be re-migrated without consuming additional Entity Points. This prevents scope from being bypassed through repeated small migrations and helps keep planning predictable.
 
-For the full model and examples, see Entity Points Explained: How Migration Scope Is Measured.
+For the full model and examples, see **Entity Points Explained: How Migration Scope Is Measured**.
 
-### Planning note: migration packages and license timing
+#### Planning note: migration packages and license timing
 
 If you are evaluating a platform change, treat migration timing as part of the decision, not an afterthought.
 
